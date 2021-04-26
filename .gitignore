@@ -1,4 +1,6 @@
 dist
 .git
 .idea
+build
 wagtail_rest_pack.egg-info
+venv
