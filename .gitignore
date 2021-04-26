@@ -1,3 +1,4 @@
 dist
 .git
 .idea
+wagtail_rest_pack.egg-info
