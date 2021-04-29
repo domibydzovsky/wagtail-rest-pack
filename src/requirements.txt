@@ -1,0 +1,5 @@
+django>3.0
+wagtail>2.11
+build
+drf-extensions==0.6.0
+djangorestframework==3.12.4
