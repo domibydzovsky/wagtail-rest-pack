@@ -24,12 +24,5 @@ class PageBannerMixin(models.Model):
         ),
     ]
 
-    api_fields = [
-        APIField('banner_title'),
-        APIField('banner_subtitle'),
-        APIField('banner_image',
-                 serializer=ImageRenditionField(getattr(settings, 'IMAGE_BANNER_RENDERITION', 'fill-300x200'))),
-    ]
-
     class Meta:
         abstract = True

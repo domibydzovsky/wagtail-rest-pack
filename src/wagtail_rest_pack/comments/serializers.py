@@ -10,11 +10,11 @@ class CommentSerializer(serializers.BaseSerializer):
 
     allow_null = True
     many = True
-    meta_fields = ['created_on']
+    meta_fields = ['created_on', 'updated_on']
 
     class Meta:
         model = Comment
-        fields = ('id', 'name', 'body', 'created_on', 'children', 'is_staff')
+        fields = ('id', 'name', 'body', 'created_on', 'updated_on', 'children', 'is_staff')
 
     def create(self, validated_data):
         object_id = self.context['request'].data['object_id']

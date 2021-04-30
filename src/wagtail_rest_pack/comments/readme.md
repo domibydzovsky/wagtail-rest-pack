@@ -36,3 +36,33 @@ urlpattern = [
 ```python
 python3 manage.py migrate
 ```
+
+To get comments of a given object:
+```bash
+curl -X GET localhost:8000/comments/?content_type=wagtailcore.Page&content_id=2
+```
+
+To create a new comment:
+```bash
+curl -X POST localhost:8000/comments/?content_type=wagtailcore.Page&content_id=2
+data: {
+  'body': str,
+  'parent_id': int or None
+}
+```
+To delete a comment:
+```bash
+curl -X DELETE localhost:8000/comments/
+data: {
+  'id': int
+}
+```
+
+To update a comment:
+```bash
+curl -X PUT localhost:8000/comments/
+data: {
+  'id': int,
+  'body': str
+}
+```
