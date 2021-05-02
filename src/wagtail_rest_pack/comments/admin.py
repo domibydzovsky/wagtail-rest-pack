@@ -8,6 +8,6 @@ class CommentsModelAdmin(ModelAdmin):
     menu_order = 200
     add_to_settings_menu = False  # or True to add your model to the Settings sub-menu
     exclude_from_explorer = False  # or True to exclude pages of this type from Wagtail's explorer view
-    list_display = ('body', 'page', 'created_on', 'created_by', 'parent')
-    list_filter = ('page', 'created_on')
-    search_fields = ('body', 'created_by')
+    list_display = ('body', 'created_on', 'created_by', 'parent',)
+    list_filter = ('created_on',)
+    search_fields = ('body', 'created_by',)

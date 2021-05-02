@@ -4,6 +4,7 @@ from django.db import migrations, models
 import django.db.models.deletion
 import modelcluster.fields
 import wagtail.core.fields
+from wagtail.images import get_image_model_string
 
 
 class Migration(migrations.Migration):
@@ -21,7 +22,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('text', wagtail.core.fields.RichTextField(default='', help_text='Text zobrazený přes obrázek.', max_length=200)),
-                ('image', models.ForeignKey(default=None, null=True, on_delete=django.db.models.deletion.PROTECT, to='wagtailimages.image')),
+                ('image', models.ForeignKey(default=None, null=True, on_delete=django.db.models.deletion.PROTECT, to=get_image_model_string())),
             ],
             options={
                 'verbose_name': 'Carousel Item',
