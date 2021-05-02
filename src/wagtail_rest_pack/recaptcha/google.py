@@ -1,7 +1,10 @@
-
+import requests
 from rest_framework.exceptions import ValidationError
 from wagtail_rest_pack.recaptcha.models import RecaptchaVerifier
 from django.conf import settings
+from wagtail_rest_pack.recaptcha.models import get_client_ip
+
+
 class GoogleRecaptchaVerifier(RecaptchaVerifier):
     def verify(self, request):
         captcha_rs = request.data.get('g-recaptcha-response')

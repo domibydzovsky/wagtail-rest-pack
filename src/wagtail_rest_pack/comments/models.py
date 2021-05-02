@@ -1,14 +1,15 @@
+from django.conf import settings
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 
-from django.conf import settings
 
 class Comment(models.Model):
     parent = models.ForeignKey('self', on_delete=models.CASCADE, related_name='children', blank=True, null=True)
     created_on = models.DateTimeField(auto_now_add=True, editable=False)
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, editable=False, on_delete=models.SET_NULL, null=True, blank=True)
     updated_on = models.DateTimeField(auto_now_add=False, default=None, null=True, editable=True)
+    updated_by = models.ForeignKey(settings.AUTH_USER_MODEL, editable=False, on_delete=models.SET_NULL, null=True, blank=True, related_name='updated_by')
     body = models.TextField(max_length=2000)
 
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)

@@ -2,9 +2,11 @@ from django.contrib.contenttypes.models import ContentType
 from wagtail.core.models import Page
 
 
-def new_comment_data():
+def new_comment_data(page_id):
     return {
-        'body': 'Ahoj'
+        'body': 'Ahoj',
+        'content_type': 'wagtailcore.Page',
+        'object_id': page_id
     }
 
 

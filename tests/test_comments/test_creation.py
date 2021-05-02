@@ -5,12 +5,12 @@ from wagtail.api.v2.utils import BadRequestError
 from wagtail.core.models import Page
 from django.conf import settings
 
-from src.wagtail_rest_pack.comments.endpoints import CommentsEndpoint
+from src.wagtail_rest_pack.comments.create import CreateCommentAPIView
 from .factory import new_comment_data
 from .help import cleanup_and_prepare
 
 factory = APIRequestFactory()
-endpoint = CommentsEndpoint()
+endpoint = CreateCommentAPIView()
 
 
 @pytest.fixture(autouse=True)
@@ -20,22 +20,10 @@ def run_around_tests():
     pass
 
 @pytest.mark.django_db
-def test_get():
-    # given
-    request = factory.get('/api/v2/comments/?content_type=wagtailcore.Page&content_id=2')
-    # when
-    response = endpoint.dispatch(request)
-    # then
-    assert isinstance(response.data, list)
-    assert len(response.data) == 0
-    assert response.status_code == 200
-
-
-@pytest.mark.django_db
 def test_comment_can_be_added_with_anonymous_user():
     # given
     page_id = str(list(Page.objects.all())[0].id)
-    request = factory.post('/api/v2/comments/?content_type=wagtailcore.Page&content_id=' + page_id, new_comment_data())
+    request = factory.post('/api/v2/comments/' + page_id, new_comment_data(page_id))
     # when
     response = endpoint.dispatch(request)
     # then
@@ -46,7 +34,7 @@ def test_comment_can_be_added_with_anonymous_user():
 def test_comment_can_not_be_added_without_recaptcha():
     # given
     page_id = str(list(Page.objects.all())[0].id)
-    request = factory.post('/api/v2/comments/?content_type=wagtailcore.Page&content_id=' + page_id, new_comment_data())
+    request = factory.post('/api/v2/comments/', new_comment_data(page_id))
 
     # when
     response = endpoint.dispatch(request)
@@ -58,19 +46,18 @@ def test_comment_can_not_be_added_without_recaptcha():
 def test_comment_can_not_be_added_without_recaptcha():
     # given
     page_id = str(list(Page.objects.all())[0].id)
-    request = factory.post('/api/v2/comments/?content_type=wagtailcore.Page&content_id=' + page_id, new_comment_data())
+    request = factory.post('/api/v2/comments/', new_comment_data(page_id))
     settings.RECAPTCHA_VERIFIER = 'wagtail_rest_pack.recaptcha.google.GoogleRecaptchaVerifier'
     # when
     response = endpoint.dispatch(request)
     # then
-    assert response.status_code == 400
-    assert 'Recaptcha field is empty' in response.data
+    assert response.status_code == 403
 
 @pytest.mark.django_db
 def test_comment_can_not_be_added_when_model_not_allowed():
     # given
     page_id = str(list(Page.objects.all())[0].id)
-    request = factory.post('/api/v2/comments/?content_type=wagtailcore.Page&content_id=' + page_id, new_comment_data())
+    request = factory.post('/api/v2/comments/', new_comment_data(page_id))
     settings.ALLOWED_COMMENTED_CONTENT_TYPES = ['wagtailcore.Page2']
     # when
     try:
