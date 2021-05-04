@@ -68,6 +68,7 @@ INSTALLED_APPS = [
     'wagtail_rest_pack.page_banner',
     'wagtail_rest_pack.sitesettings',
     'wagtail_rest_pack.comments',
+    'wagtail_rest_pack.generic_forms',
 ]
 
 
