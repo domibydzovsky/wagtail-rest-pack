@@ -4,9 +4,9 @@ from django.http import HttpResponse
 class VersionMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
-        self.version = getattr(settings, "APPLICATION_VERSION", None)
+        self.version = getattr(settings, 'APPLICATION_VERSION', None)
         assert self.version is not None, (
-            "The `APPLICATION_VERSION` must be set in order to use VersionMiddleware."
+            'The `APPLICATION_VERSION` must be set in order to use VersionMiddleware.'
         )
 
     def __call__(self, request):

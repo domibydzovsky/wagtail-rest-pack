@@ -6,6 +6,7 @@ from wagtail_rest_pack.exception.handler import custom_exception_handler
 from wagtail_rest_pack.recaptcha.permission import AuthenticatedOrRecaptcha
 from wagtail_rest_pack.comments.content_type import create_content_type_id
 from wagtail_rest_pack.comments.models import Comment
+from django.utils.translation import gettext as _
 
 
 class CreateCommentSerializer(ModelSerializer):
@@ -23,7 +24,7 @@ class CreateCommentSerializer(ModelSerializer):
         validated_data['content_type_id'] = create_content_type_id(validated_data['object_id'], content_type)
         parent = getattr(validated_data, 'parent', None)
         if parent is not None and parent.parent is not None:
-            raise ValidationError('Only two level comment tree is supported.')
+            raise ValidationError(_('Only two level comment tree is supported.'))
         user = self.context['request'].user
         if not user.is_anonymous:
             validated_data['created_by'] = user

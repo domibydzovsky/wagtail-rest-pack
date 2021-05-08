@@ -5,6 +5,7 @@ from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
 from modelcluster.models import ClusterableModel
 from wagtail_rest_pack.sitesettings.snippets import ImageSliderItem
+from django.utils.translation import gettext as _
 
 
 class SiteSettingsSection(Orderable, models.Model):
@@ -15,5 +16,5 @@ class SiteSettingsSection(Orderable, models.Model):
     ]
 
     class Meta:
-        verbose_name = "Carousel Item"
-        verbose_name_plural = "Carousel Items"
+        verbose_name = _('Carousel Item')
+        verbose_name_plural = _('Carousel Items')

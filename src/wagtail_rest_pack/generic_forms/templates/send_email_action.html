@@ -1,0 +1,31 @@
+ahoj, píše ti uživatel <b>{{ user.username }}</b>
+
+<table>
+    <tr>
+        <td>Jméno pole</td>
+        <td>Hodnota</td>
+    </tr>
+    {% for key, value in data.items %}
+    <tr>
+        <td>{{key}}</td>
+        <td>{{value}}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% if context %}
+<table>
+    <tr>
+        <td>Context</td>
+        <td>Hodnota</td>
+    </tr>
+    {% for key, value in context.items %}
+    <tr>
+        <td>{{key}}</td>
+        <td>{{value}}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+  Nebyl uveden žádný kontext.
+{% endif %}

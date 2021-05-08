@@ -1,9 +1,9 @@
 
-from rest_framework.permissions import BasePermission, SAFE_METHODS
+from rest_framework.exceptions import ValidationError
+from rest_framework.permissions import BasePermission
 
 from .models import get_recaptcha_instance
 
-from rest_framework.exceptions import ValidationError
 
 class AuthenticatedOrRecaptcha(BasePermission):
     def has_permission(self, request, view):

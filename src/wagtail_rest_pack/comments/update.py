@@ -7,6 +7,8 @@ from rest_framework.permissions import IsAuthenticated
 from wagtail_rest_pack.comments.models import Comment
 from wagtail_rest_pack.comments.permission import CommentOwnerOrStaff
 
+from wagtail_rest_pack.exception.handler import custom_exception_handler
+
 
 class UpdateCommentSerializer(ModelSerializer):
     body = serializers.CharField(max_length=2000, required=True)
@@ -28,3 +30,5 @@ class DeleteUpdateCommentAPIView(generics.DestroyAPIView, generics.UpdateAPIView
     def get_queryset(self):
         return Comment.objects.all()
 
+    def get_exception_handler(self):
+        return custom_exception_handler

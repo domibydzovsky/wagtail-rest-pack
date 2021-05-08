@@ -2,10 +2,6 @@ from django.conf import settings
 from rest_framework.exceptions import ValidationError
 from importlib import import_module
 
-def isRequestSeamlessWalk(request):
-    from django.conf import settings
-    return get_client_ip(request) in getattr(settings, "SEAMLESS_WALK_IPS", [])
-
 def get_client_ip(request):
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
     if x_forwarded_for:
@@ -21,10 +17,8 @@ class RecaptchaVerifier:
 
 
 def get_recaptcha_instance() -> RecaptchaVerifier:
-    class_str = getattr(settings, "RECAPTCHA_VERIFIER", None)
-    if class_str is None:
-        raise ValidationError("Please, specify RECAPTCHA_VERIFIER in settings.")
-
+    class_str = getattr(settings, 'RECAPTCHA_VERIFIER', None)
+    assert class_str is not None, ('Please, specify RECAPTCHA_VERIFIER in settings.')
     try:
         module_path, class_name = class_str.rsplit('.', 1)
         module = import_module(module_path)
