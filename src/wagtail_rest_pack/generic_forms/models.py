@@ -8,6 +8,7 @@ from wagtail_rest_pack.generic_forms.blocks.text_block import InputBlockSerializ
 from wagtail_rest_pack.recaptcha.permission import AuthenticatedOrRecaptcha
 from rest_framework.permissions import IsAuthenticated
 from django.utils.translation import gettext as _
+from wagtailmodelchooser import register_simple_model_chooser
 
 security_choices = {
     'recaptcha_or_user': {
@@ -23,6 +24,7 @@ security_choices = {
 
 
 @register_snippet
+@register_simple_model_chooser
 class FormBuilder(ClusterableModel):
     name = models.CharField(max_length=60, validators=[], primary_key=True)
     display_name = models.TextField(max_length=100, default="")

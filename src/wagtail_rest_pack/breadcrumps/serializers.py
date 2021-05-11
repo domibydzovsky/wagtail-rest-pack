@@ -4,10 +4,12 @@ from wagtail.core.models import Page
 
 class BreadcrumpSerializer(Field):
     def get_parent_or_none(self, page) -> Page or None:
-        result = page.get_parent()
-        if result.url == '/':
+        parent = page.get_parent()
+        if parent is None:
             return None
-        return result
+        if parent.url == '/':
+            return None
+        return parent
 
     def to_representation(self, page: Page):
         parent = self.get_parent_or_none(page)

@@ -69,6 +69,7 @@ INSTALLED_APPS = [
     'wagtail_rest_pack.sitesettings',
     'wagtail_rest_pack.comments',
     'wagtail_rest_pack.generic_forms',
+    'wagtail_rest_pack.streamfield',
 ]
 
 
