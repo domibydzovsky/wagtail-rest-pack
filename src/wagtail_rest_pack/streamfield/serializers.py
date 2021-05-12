@@ -47,6 +47,11 @@ def get_stream_field_serializers():
         'form_group': 'wagtail_rest_pack.generic_forms.blocks.group_block.GroupBlockSerializer',
         'form_submit': 'wagtail_rest_pack.generic_forms.blocks.submit_block.SubmitBlockSerializer',
         'form': 'wagtail_rest_pack.generic_forms.view.GetFormBuilderSerializer',
+        'richtext': 'wagtail_rest_pack.streamfield.richtext.RichTextSerializer',
+        'container': 'wagtail_rest_pack.streamfield.container.ContainerSerializer',
+        'containers': 'wagtail_rest_pack.streamfield.containers.ContainersSerializer',
+        'gallery': 'wagtail_rest_pack.streamfield.gallery.GallerySerializer',
+        'gallery_image': 'wagtail_rest_pack.streamfield.image.GalleryImageSerializer',
     }
     serializers = {**form_serializers, **additional_serializers}
     classes = {}

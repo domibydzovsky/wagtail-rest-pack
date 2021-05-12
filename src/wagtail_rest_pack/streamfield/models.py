@@ -4,19 +4,22 @@ from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
 from wagtail.core.blocks import StreamBlock
 from wagtail.core.fields import StreamField
 from wagtail.snippets.models import register_snippet
-
-from wagtail_rest_pack.streamfield.image import  GalleryImageSerializer
-from wagtail_rest_pack.streamfield.serializers import SettingsStreamFieldSerializer
 from django.utils.translation import gettext_lazy as _
+from wagtail.images.blocks import ImageChooserBlock
+from wagtail.core import blocks
 
-from wagtail_rest_pack.streamfield.image import gallery_image_block
+class GalleryImageBlock(blocks.StructBlock):
+    def __init__(self, *args, **kwargs):
+        super().__init__(local_blocks=[
+            ('id', ImageChooserBlock(icon='image', label=_('Image'))),
+        ], **kwargs)
 
 
 @register_snippet
 class Gallery(ClusterableModel):
     name = models.CharField(max_length=120, help_text=_('Gallery name'))
     stream = StreamField(block_types=[
-        gallery_image_block()
+        ('gallery_image', GalleryImageBlock()),
     ])
     panels = [
         FieldPanel('name'),

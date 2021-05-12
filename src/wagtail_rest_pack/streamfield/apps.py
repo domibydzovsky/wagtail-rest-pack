@@ -6,4 +6,5 @@ class StreamfieldConfig(AppConfig):
     verbose_name = _('StreamField Additions')
 
     def ready(self):
-        super().ready()
+        pass
+        # super().ready()

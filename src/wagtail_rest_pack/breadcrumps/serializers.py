@@ -7,7 +7,7 @@ class BreadcrumpSerializer(Field):
         parent = page.get_parent()
         if parent is None:
             return None
-        if parent.url == '/':
+        if parent.url is None or parent.url == '/':
             return None
         return parent
 

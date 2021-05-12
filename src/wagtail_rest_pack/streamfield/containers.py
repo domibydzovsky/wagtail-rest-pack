@@ -18,7 +18,7 @@ class ContainersSerializer(serializers.Serializer):
 
     @staticmethod
     def block_definition(local_blocks):
-        return ContainersSerializer.block_name, ContainersBlock(local_blocks=local_blocks, icon='doc-full', label=_('More Columns'))
+        return ContainersSerializer.block_name, ContainersBlock(local_blocks=local_blocks, icon='container', label=_('More Columns'))
 
     class Meta:
         fields = ('stream',)

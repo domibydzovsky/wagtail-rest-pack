@@ -6,9 +6,8 @@ from wagtail.core.blocks import StreamBlock
 from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtail_rest_pack.streamfield.models import Gallery
 
-from wagtail_rest_pack.streamfield.serializers import SettingsStreamFieldSerializer
+from wagtail_rest_pack.streamfield.serializers import SettingsStreamFieldSerializer, get_stream_field_serializers
 
-from wagtail_rest_pack.streamfield.image import GalleryImageSerializer
 
 
 def gallery_block():
@@ -17,9 +16,6 @@ def gallery_block():
 
 class GallerySerializer(serializers.ModelSerializer):
     block_name = 'gallery'
-    # stream = SettingsStreamFieldSerializer(serializers={
-    #     'gallery_image': GalleryImageSerializer
-    # })
     images = serializers.SerializerMethodField('get_images')
 
     @staticmethod
@@ -32,8 +28,11 @@ class GallerySerializer(serializers.ModelSerializer):
 
     def get_images(self, gallery):
         data = gallery.stream.stream_data
+        serializers = get_stream_field_serializers()
         for item in data:
-            assert item['type'] == 'gallery_image'
-            serializer = GalleryImageSerializer(item['value'])
-            yield serializer.data
+            cls = serializers.get(item['type'])
+            assert cls is not None, (
+                '%s serializers is not registered.' % item['type']
+            )
+            yield cls(item['value']).data
 
