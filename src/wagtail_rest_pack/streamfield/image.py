@@ -19,7 +19,7 @@ class GalleryImageSerializer(serializers.ModelSerializer):
         model = get_image_model()
         image = model.objects.get(id=data['id'])
         large_renderition = getattr(settings, 'IMAGE_LARGE_RENDERITION', 'width-1280')
-        small_renderition = getattr(settings, 'IMAGE_SMALL_RENDERITION', 'width-480')
+        small_renderition = getattr(settings, 'IMAGE_BANNER_RENDERITION', 'fill-300x200')
         return {
             'id': data['id'],
             'title': image.title,
