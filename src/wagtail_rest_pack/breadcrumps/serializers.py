@@ -7,12 +7,12 @@ class BreadcrumpSerializer(Field):
         parent = page.get_parent()
         if parent is None:
             return None
-        if parent.url is None or parent.url == '/':
+        if parent.url is None:
             return None
         return parent
 
     def to_representation(self, page: Page):
-        parent = self.get_parent_or_none(page)
+        parent = page
         while parent is not None:
             yield {
                 'id': parent.id,
