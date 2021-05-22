@@ -9,6 +9,8 @@ class BreadcrumpSerializer(Field):
             return None
         if parent.url is None:
             return None
+        if parent.url == '/':
+            return None
         return parent
 
     def to_representation(self, page: Page):

@@ -1,10 +1,7 @@
-from abc import ABC
-
 from rest_framework.fields import Field
-
-from django.conf import settings
+from rest_framework.serializers import BaseSerializer
 from wagtail.images.api.fields import ImageRenditionField
-
+from django.conf import settings
 
 def create_banner(page):
     banner = {}
@@ -17,9 +14,19 @@ def create_banner(page):
         banner['image'] = ImageRenditionField(spec).to_representation(page.banner_image)
     return banner
 
+def create_page(page):
+    result = {
+        'id': page.id,
+        'slug': page.slug,
+        'url': page.url,
+        'last_published_at': page.last_published_at,
+        'banner': create_banner(page),
+    }
+    if hasattr(page, 'keywords'):
+        result['keywords'] =[tag.name for tag in page.keywords.all()]
+    return result
 
-class BanneredChildrenSerializer(Field, ABC):
-
+class BanneredChildrenSerializer(Field):
     def to_representation(self, value):
         request = self.context['request']
         qs = value.specific()
@@ -28,10 +35,9 @@ class BanneredChildrenSerializer(Field, ABC):
             qs = qs.order_by(order)
         qs = self.context['view'].paginate_queryset(qs)
         for page in qs:
-            yield {
-                'id': page.id,
-                'slug': page.slug,
-                'url': page.url,
-                'last_published_at': page.last_published_at,
-                'banner': create_banner(page)
-            }
+            yield create_page(page)
+
+class RFBanneredChildrenSerializer(BaseSerializer):
+
+    def to_representation(self, instance):
+        return create_page(instance.specific)
