@@ -27,7 +27,7 @@ class GallerySerializer(serializers.ModelSerializer):
         fields = ['name', 'images', ]
 
     def get_images(self, gallery):
-        data = gallery.stream.stream_data
+        data = gallery.stream.raw_data
         serializers = get_stream_field_serializers()
         for item in data:
             cls = serializers.get(item['type'])

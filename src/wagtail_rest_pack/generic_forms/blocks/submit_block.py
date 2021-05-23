@@ -2,34 +2,53 @@ from rest_framework import serializers
 from wagtail.core import blocks
 from wagtail_rest_pack.generic_forms.actions.send_email import SendEmailAction
 from wagtail_rest_pack.generic_forms.response.snack import ShowSnackResponse
-from wagtail_rest_pack.generic_forms.response.dialog import ShowDialogResponse
 from django.core.exceptions import ValidationError
 
 from django.utils.translation import gettext_lazy as _
+from wagtail_rest_pack.streamfield.richtext import RichTextSerializer
+from wagtail_rest_pack.streamfield.serializers import SettingsStreamFieldSerializer
+
+
+class OpenDialogSerializer(serializers.Serializer):
+    type= 'form_open_dialog'
+    title = serializers.CharField(max_length=40)
+    text = SettingsStreamFieldSerializer()
+    @staticmethod
+    def block_definition() ->tuple:
+        return OpenDialogSerializer.type, blocks.StructBlock(local_blocks=[
+            ('title', blocks.TextBlock(required=True, help_text=_('title'), max_length=40)),
+            ('text', blocks.StreamBlock([
+                RichTextSerializer.block_definition()
+            ]))
+        ])
+
+    class Meta:
+        fields = ['title', 'text',]
+
 
 class SubmitBlockSerializer(serializers.Serializer):
     block_name = 'form_submit'
     name = serializers.CharField(max_length=30)
     text = serializers.CharField(max_length=30)
-    expected_to_be_set = _('Expected "{field_name}" to be set, but is not')
+
     @staticmethod
     def block_definition():
         return SubmitBlockSerializer.block_name, SubmitBlock('submit')
 
     class Meta:
-        fields = ('name', 'text',)
+        fields = ['name', 'text',]
 
-    def validate_field(self, value):
-        instance = self.context['instance']
-        if value.get(instance['name']) is None:
-            raise ValidationError(self.expected_to_be_set.format(field_name=instance['name']))
-
+class RevealSubmitBlockSerializer(SubmitBlockSerializer):
+    response = SettingsStreamFieldSerializer()
+    action = SettingsStreamFieldSerializer()
+    class Meta:
+        fields = ['name', 'text', 'response', 'action',]
 
 class SubmitBlock(blocks.StructBlock):
 
     def get_responses(self):
         return [
-            ShowDialogResponse.block_definition(),
+            OpenDialogSerializer.block_definition(),
             ShowSnackResponse.block_definition(),
         ]
 

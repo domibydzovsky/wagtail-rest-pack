@@ -23,16 +23,5 @@ class GetFormBuilderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = FormBuilder
-        fields = ['name', 'display_name', 'security', 'stream']
+        fields = ['name', 'display_name', 'description', 'security', 'stream']
 
-
-class FormView(generics.RetrieveAPIView):
-
-    permission_classes = [AllowAny]
-    queryset = FormBuilder.objects.all()
-    lookup_field = 'name'
-    lookup_url_kwarg = 'name'
-    serializer_class = GetFormBuilderSerializer
-
-    def get_exception_handler(self):
-        return custom_exception_handler

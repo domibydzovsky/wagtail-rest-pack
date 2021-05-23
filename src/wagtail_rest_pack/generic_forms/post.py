@@ -5,9 +5,12 @@ from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.permissions import BasePermission
+from wagtail_rest_pack.generic_forms.blocks.submit_block import RevealSubmitBlockSerializer
 from wagtail_rest_pack.generic_forms.models import FormBuilder
 
 from wagtail_rest_pack.exception.handler import custom_exception_handler
+from wagtail_rest_pack.streamfield.serializers import SettingsStreamFieldSerializer
+
 from .models import FormBuilder, security_choices
 from .handlers.handler import handle
 from .validation import validate_form_data
@@ -48,7 +51,14 @@ class PostFormView(APIView):
             'data': data['data']
         }
         context['validated_data'] = validate_form_data(**context)
-        result = handle(action, **context)
+        def match_action(other):
+            return action['id'] == other['id']
+        fields = SettingsStreamFieldSerializer(serializers={
+            'form_submit': RevealSubmitBlockSerializer
+        }).to_representation(form.stream)
+        actions = list(filter(match_action, fields))
+        assert len(actions) == 1, ('More actions with same id found. Should not happen')
+        result = handle(actions[0], **context)
         return HttpResponse(json.dumps({
             'stream': result
         }))

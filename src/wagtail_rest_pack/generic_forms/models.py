@@ -39,7 +39,7 @@ class FormBuilder(ClusterableModel):
     ])
 
     def find_action(self, action):
-        submittables = [action for action in self.stream.stream_data if action['type'] == 'form_submit']
+        submittables = [action for action in self.stream.raw_data if action['type'] == 'form_submit']
         candidates = [candidate for candidate in submittables if candidate['value']['name'] == action]
         if len(candidates) != 1:
             return None

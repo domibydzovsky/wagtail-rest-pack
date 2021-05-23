@@ -17,7 +17,7 @@ class RichTextSerializer(serializers.Serializer):
         features = ['h2', 'h3', 'italic', 'bold', 'ol', 'ul', 'hr', 'link',
                     'document-link', 'image', 'embed', 'code',
                     'superscript', 'subscript', 'strikethrough', 'blockquote']
-        return RichTextSerializer.block_name, RichTextBlock(features=features)
+        return RichTextSerializer.block_name, RichTextBlock(features=features,icon='doc-full')
 
     class Meta:
         fields = ('text',)
