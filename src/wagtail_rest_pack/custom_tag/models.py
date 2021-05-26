@@ -18,9 +18,6 @@ class Tag(TaggitTag):
 class PageTag(TaggedItemBase):
     content_object = ParentalKey(
         Page,
-        related_name='tagged_pages',
+        related_name='%(app_label)s_%(class)s_items',
         on_delete=models.CASCADE,
     )
-
-    class Meta:
-        app_label = 'wagtail_rest_pack'
