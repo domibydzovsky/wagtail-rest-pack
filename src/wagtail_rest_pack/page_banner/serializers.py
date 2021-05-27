@@ -19,7 +19,7 @@ def create_page(page):
         'id': page.id,
         'slug': page.slug,
         'url': page.url,
-        'last_published_at': page.last_published_at,
+        'last_published_at': str(page.last_published_at),
         'banner': create_banner(page),
     }
     if hasattr(page, 'keywords'):
