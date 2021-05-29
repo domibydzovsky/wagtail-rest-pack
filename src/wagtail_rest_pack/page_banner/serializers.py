@@ -30,7 +30,7 @@ class BanneredChildrenSerializer(Field):
     def to_representation(self, value):
         request = self.context['request']
         qs = value.specific()
-        order = request.query_params.get('order', None)
+        order = request.query_params.get('order', '-last_published_at')
         if order is not None:
             qs = qs.order_by(order)
         qs = self.context['view'].paginate_queryset(qs)

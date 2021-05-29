@@ -10,6 +10,7 @@ def indexUpdated(**kwargs):
     if not instance.has_unpublished_changes:
         ids = []
         if hasattr(instance, 'relation_fields'):
+            # todo use texteditor handlers if possible
             for field in instance.relation_fields:
                 value = field.serializer.to_representation(getattr(instance, field.name))
                 ids.extend(page_id_pattern.findall(value))

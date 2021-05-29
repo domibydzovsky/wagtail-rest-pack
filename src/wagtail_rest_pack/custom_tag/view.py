@@ -14,5 +14,5 @@ class TagSerializer(serializers.ModelSerializer):
 
 class TagViewset(generics.ListAPIView):
     model = PageTag
-    queryset = PageTag.objects.all()
+    queryset = PageTag.objects.all() # todo lists all tags, I need a set, no duplicates plase :)
     serializer_class = TagSerializer

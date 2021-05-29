@@ -49,6 +49,7 @@ def get_stream_field_serializers():
         'form_open_dialog': 'wagtail_rest_pack.generic_forms.blocks.submit_block.OpenDialogSerializer',
         'form': 'wagtail_rest_pack.generic_forms.view.GetFormBuilderSerializer',
         'richtext': 'wagtail_rest_pack.streamfield.richtext.RichTextSerializer',
+        'pagelist': 'wagtail_rest_pack.streamfield.page_list.PageListSerializer',
         'container': 'wagtail_rest_pack.streamfield.container.ContainerSerializer',
         'containers': 'wagtail_rest_pack.streamfield.containers.ContainersSerializer',
         'gallery': 'wagtail_rest_pack.streamfield.gallery.GallerySerializer',
