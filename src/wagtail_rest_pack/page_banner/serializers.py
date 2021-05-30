@@ -1,43 +1,48 @@
-from rest_framework.fields import Field
-from rest_framework.serializers import BaseSerializer
-from wagtail.images.api.fields import ImageRenditionField
 from django.conf import settings
+from rest_framework import serializers
+from rest_framework.fields import Field
+from rest_framework.serializers import ModelSerializer
+from wagtail.core.models import Page
+from wagtail.images.api.fields import ImageRenditionField
+from wagtail_rest_pack.streamfield.serializers import SettingsStreamFieldSerializer
 
-def create_banner(page):
-    banner = {}
-    if hasattr(page, 'banner_title'):
-        banner['title'] = page.banner_title
-    if hasattr(page, 'banner_subtitle'):
-        banner['subtitle'] = page.banner_subtitle
-    if hasattr(page, 'banner_image'):
-        spec = getattr(settings, 'IMAGE_BANNER_RENDERITION', 'fill-300x200')
-        banner['image'] = ImageRenditionField(spec).to_representation(page.banner_image)
-    return banner
 
-def create_page(page):
-    result = {
-        'id': page.id,
-        'slug': page.slug,
-        'url': page.url,
-        'last_published_at': str(page.last_published_at),
-        'banner': create_banner(page),
-    }
-    if hasattr(page, 'keywords'):
-        result['keywords'] =[tag.name for tag in page.keywords.all()]
-    return result
+class BannerSerializer(serializers.Serializer):
+    spec = getattr(settings, 'IMAGE_BANNER_RENDERITION', 'fill-300x200')
+    title = serializers.CharField(source='banner_title', required=False)
+    subtitle = serializers.CharField(source='banner_subtitle', required=False)
+    image = ImageRenditionField(spec, source='banner_image')
+    class Meta:
+        fields = ['title', 'subtitle', 'image',]
+
+class ChildPageBannerSerializer(ModelSerializer):
+    def __init__(self, *args, **kwargs):
+        self.child_extra = kwargs.pop('child_extra', [])
+        super(ChildPageBannerSerializer, self).__init__(*args,**kwargs)
+
+    extra = serializers.SerializerMethodField('create_extra')
+    banner = BannerSerializer(source='*')
+    keywords = serializers.StringRelatedField(many=True)
+    class Meta:
+        model= Page
+        fields=['id', 'slug', 'url', 'last_published_at', 'banner', 'keywords', 'extra']
+
+    def create_extra(self, instance):
+        ret = {}
+        if 'stream' in self.child_extra:
+            ret['stream'] = SettingsStreamFieldSerializer().to_representation(instance.stream)
+        return ret
 
 class BanneredChildrenSerializer(Field):
+
     def to_representation(self, value):
         request = self.context['request']
-        qs = value.specific()
         order = request.query_params.get('order', '-last_published_at')
-        if order is not None:
+        child_extra = request.query_params.get('child_extra', '').split(',')
+        qs = value
+        if hasattr(value, 'specific'):
+            qs = qs.specific()
+        if order is not None and hasattr(qs, 'order_by'):
             qs = qs.order_by(order)
         qs = self.context['view'].paginate_queryset(qs)
-        for page in qs:
-            yield create_page(page)
-
-class RFBanneredChildrenSerializer(BaseSerializer):
-
-    def to_representation(self, instance):
-        return create_page(instance.specific)
+        return ChildPageBannerSerializer(qs, child_extra=child_extra, many=True).data

@@ -17,7 +17,7 @@ def page_list():
 page_list_variants = [
     ('simple', _('Simple')),
     ('amazing', _('Top, Top Three and simple')),
-    # ('nested', _('Directly draw all pages inside')),
+    ('nested', _('Directly draw all pages inside')),
 ]
 
 

@@ -5,12 +5,16 @@ from django.http import HttpResponseNotFound, HttpResponseBadRequest, HttpRespon
 import json
 
 from wagtail_rest_pack.custom_tag.models import PageTag
-from wagtail_rest_pack.page_banner.serializers import RFBanneredChildrenSerializer
+from wagtail_rest_pack.page_banner.serializers import BanneredChildrenSerializer
 from wagtail.images import get_image_model
 import time
+
+from wagtail_rest_pack.streamfield.image import GalleryImageSerializer
+
+
 class SearchView(generics.RetrieveAPIView):
     def get_serializer_class(self):
-        return RFBanneredChildrenSerializer
+        return BanneredChildrenSerializer
 
     def get_pages_queryset(self):
         return Page.objects.live().public()
@@ -31,15 +35,19 @@ class SearchView(generics.RetrieveAPIView):
             return HttpResponseBadRequest()
         t0 = time.time()
         if type == 'pages':
-            pages = self.get_pages_queryset().search(query)
+            pages = self.get_pages_queryset().specific().search(query)
+            pages = self.paginate_queryset(pages)
+            ser = BanneredChildrenSerializer()
+            ser._context = self.get_serializer_context()
             result = {
-                'pages': self.get_serializer(many=True).to_representation(pages),
+                'pages': ser.to_representation(pages),
                 'time': self.measure(t0)
             }
         if type == 'images':
-            images = self.get_image_queryset()
+            images = self.get_image_queryset().values('id').search(query)
+            images = self.paginate_queryset(images)
             result = {
-                'images': list(map(lambda x: x.id, images)),
+                'images': GalleryImageSerializer(many=True).to_representation(images),
                 'time': self.measure(t0)
             }
         if type == 'documents':
@@ -50,7 +58,8 @@ class SearchView(generics.RetrieveAPIView):
             }
         if type == 'tags':
             tags = set(query.query_string.split(' '))
-            pages = Page.objects.filter(id__in=PageTag.objects.filter(tag__name__in=tags).values_list('content_object'))
+            pages = Page.objects.live().public().filter(id__in=PageTag.objects.filter(tag__name__in=tags).values_list('content_object'))
+            pages = self.paginate_queryset(pages)
             result = {
                 'tags': self.get_serializer(many=True).to_representation(pages),
                 'time': self.measure(t0)
