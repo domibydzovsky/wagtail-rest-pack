@@ -23,8 +23,8 @@ class CreateCommentSerializer(ModelSerializer):
         content_type = validated_data.pop('content_type')
         validated_data['content_type_id'] = create_content_type_id(validated_data['object_id'], content_type)
         parent = getattr(validated_data, 'parent', None)
-        if parent is not None and parent.parent is not None:
-            raise ValidationError(_('Only two level comment tree is supported.'))
+        if parent is not None:
+            raise ValidationError(_('Only one level comment tree is supported.'))
         user = self.context['request'].user
         if not user.is_anonymous:
             validated_data['created_by'] = user

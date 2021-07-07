@@ -3,7 +3,9 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 
+from wagtail.snippets.models import register_snippet
 
+@register_snippet
 class Comment(models.Model):
     parent = models.ForeignKey('self', on_delete=models.CASCADE, related_name='children', blank=True, null=True)
     created_on = models.DateTimeField(auto_now_add=True, editable=False)
@@ -19,17 +21,5 @@ class Comment(models.Model):
     class Meta:
         ordering = ['created_on', 'created_by']
 
-    @property
-    def is_staff(self):
-        if self.created_by is not None:
-            return self.created_by.is_staff
-        return False
-
-    @property
-    def name(self):
-        if self.created_by is not None and self.created_by.is_active:
-            return self.created_by.username
-        return None
-
     def __str__(self):
-        return 'Comment {} by {}'.format(self.body, self.name)
+        return 'Comment {}'.format(self.body)

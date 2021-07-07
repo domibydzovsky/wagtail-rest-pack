@@ -58,10 +58,12 @@ class SearchView(generics.RetrieveAPIView):
             }
         if type == 'tags':
             tags = set(query.query_string.split(' '))
-            pages = Page.objects.live().public().filter(id__in=PageTag.objects.filter(tag__name__in=tags).values_list('content_object'))
+            pages = Page.objects.live().public().filter(id__in=PageTag.objects.filter(tag__name__in=tags).values_list('content_object')).specific()
             pages = self.paginate_queryset(pages)
+            ser = BanneredChildrenSerializer()
+            ser._context = self.get_serializer_context()
             result = {
-                'tags': self.get_serializer(many=True).to_representation(pages),
+                'tags': ser.to_representation(pages),
                 'time': self.measure(t0)
             }
         return HttpResponse(json.dumps(result), content_type="application/json")
