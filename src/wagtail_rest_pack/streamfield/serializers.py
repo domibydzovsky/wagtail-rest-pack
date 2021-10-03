@@ -54,6 +54,7 @@ def get_stream_field_serializers():
         'containers': 'wagtail_rest_pack.streamfield.containers.ContainersSerializer',
         'gallery': 'wagtail_rest_pack.streamfield.gallery.GallerySerializer',
         'gallery_image': 'wagtail_rest_pack.streamfield.image.GalleryImageSerializer',
+        'linkblock': 'wagtail_rest_pack.custom_menu.serializers.LinkBlockSerializer',
     }
     serializers = {**form_serializers, **additional_serializers}
     classes = {}

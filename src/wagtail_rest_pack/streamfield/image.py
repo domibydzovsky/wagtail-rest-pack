@@ -1,7 +1,6 @@
 from rest_framework import serializers
 from django.utils.translation import gettext_lazy as _
 
-from wagtail_rest_pack.streamfield.serializers import SettingsStreamFieldSerializer
 from wagtail.images import get_image_model
 from rest_framework.fields import Field
 from wagtail.images.api.fields import ImageRenditionField

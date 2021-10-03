@@ -1,13 +1,7 @@
+from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 from wagtail.core import blocks
-from wagtail.core.blocks import RichTextBlock, StructBlock, PageChooserBlock
-from wagtail.core.models import Page
-
-from wagtail.core.templatetags.wagtailcore_tags import richtext as richtext_filter
-from wagtail.snippets.blocks import SnippetChooserBlock
-from django.utils.translation import gettext_lazy as _
-
-from wagtail_rest_pack.streamfield.serializers import SettingsStreamFieldSerializer
+from wagtail.core.blocks import PageChooserBlock
 
 
 def page_list():
