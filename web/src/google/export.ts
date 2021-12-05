@@ -1,0 +1,2 @@
+
+export { GoogleRecaptcha } from './GoogleRecaptcha'
