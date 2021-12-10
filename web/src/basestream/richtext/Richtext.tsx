@@ -1,6 +1,6 @@
 import React from 'react'
 import {StreamBlockProps} from "../../stream/StreamField";
-import Interweave, {Filter, Matcher, TransformCallback, Attributes} from 'interweave';
+import Interweave, {Filter, Matcher, TransformCallback, Attributes, ALLOWED_TAG_LIST} from 'interweave';
 import {linebreak} from "./linebreak";
 import {makeStyles} from "@material-ui/core/styles";
 
@@ -18,6 +18,7 @@ export interface RichTextConfiguration {
     allowElements?: boolean,
     noHtml?: boolean,
     noHtmlExceptMatchers?: boolean,
+    transformOnlyAllowList?: boolean,
     noWrap?: boolean,
     attributes?: Attributes,
     disableMatchers?: boolean,
@@ -41,6 +42,7 @@ export function RichText(props: {text: string, conf?: RichTextConfiguration}) {
         noHtmlExceptMatchers={configuration.noHtmlExceptMatchers}
         noWrap={configuration.noWrap}
         attributes={configuration.attributes}
+        transformOnlyAllowList={configuration.transformOnlyAllowList}
         disableMatchers={configuration.disableMatchers}
         disableFilters={configuration.disableFilters}
         disableLineBreaks={configuration.disableLineBreaks}

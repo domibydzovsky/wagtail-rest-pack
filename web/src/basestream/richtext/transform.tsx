@@ -42,6 +42,6 @@ export const LinksTransformer = (props: Props): TransformCallback => {
         } else if (props.decorated) {
             return props.decorated(node, children, config);
         }
-        return null
+        return undefined
     };
 }
