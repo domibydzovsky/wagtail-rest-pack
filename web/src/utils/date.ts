@@ -20,7 +20,7 @@ const farAwayOptions: Intl.DateTimeFormatOptions = {
     minute: "2-digit"
 };
 
-export const toDateStr = (datestr: string): string => {
+export const toDateStr = (datestr: string | number): string => {
     // todo translate
     let date = new Date(datestr);
     if (isToday(date)) {

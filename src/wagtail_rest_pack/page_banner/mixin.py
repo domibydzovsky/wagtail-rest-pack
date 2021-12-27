@@ -9,7 +9,7 @@ from django.conf import settings
 
 class PageBannerMixin(models.Model):
     banner_title = models.TextField(max_length=100, blank=False, default="")
-    banner_subtitle = models.TextField(max_length=100, blank=False, default="")
+    banner_subtitle = models.TextField(max_length=500, blank=False, default="")
     banner_image = models.ForeignKey(get_image_model_string(), on_delete=models.PROTECT, blank=False, null=True,
                                      default=None)
 

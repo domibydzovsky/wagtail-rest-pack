@@ -6,7 +6,9 @@ interface Props {
 }
 
 export const ExampleComponent = ({ text }: Props) => {
-  return <div className={styles.test}>Example Component: {text}</div>
+  return <div className={styles.test}>
+    xx
+  </div>
 }
 
 export * from "./utils/export"
@@ -23,3 +25,4 @@ export * from "./breadcrumps/export"
 export * from "./basestream/export"
 export * from "./drawer/export"
 export * from "./navmenu/export"
+

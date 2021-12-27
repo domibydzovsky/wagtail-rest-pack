@@ -69,6 +69,7 @@ class ChildrenLinksSerializer(serializers.Serializer):
     def get_page_repre(self, value):
         parent = value['parent']
         children_qs = parent.specific.children
+        # todo limit somehow, or filter according to "show_in_menus"
         children = map(lambda child: {'name': child.title, 'page': child, 'icon':''}, children_qs)
         return LinkBlockSerializer(instance=children, many=True).data
 

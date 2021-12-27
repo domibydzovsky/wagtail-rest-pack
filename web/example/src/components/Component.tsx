@@ -11,15 +11,19 @@ export interface Props {
 export function Component(props: Props) {
     const classes = useStyles()
     return <Container className={classes.root}>
-      {props.name}
+      {props.name}<hr/>
       {props.children}
+      <div style={{clear: "both"}}></div>
     </Container>
 }
 
 const useStyles = makeStyles(() => {
     return {
         root: {
-
+          clear: "both",
+          marginTop: 50,
+          paddingBotton: 50,
+          borderLeft: "2px solid lightblue"
         }
     }
 })
