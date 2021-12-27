@@ -14,6 +14,7 @@ export interface MobileProps {
 }
 
 export interface RendererProps<T> extends MenuItem<T> {
+    index: number
     Render: FunctionComponent<{items: MenuItem<T>[], className?: string}>
     transform: (items: MenuItem<any>[]) => NavItemProps[]
     className?: string
@@ -35,6 +36,7 @@ export interface SingleNavMenuProps<T> {
     renderers: Renderers,
     className?: string,
     additional?: T,
+    index: number
 }
 
 export interface NavMenuProps<T> {
