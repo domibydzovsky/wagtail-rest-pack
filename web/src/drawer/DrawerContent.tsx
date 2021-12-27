@@ -18,7 +18,7 @@ export interface DrawerProps {
 export function navPropsExtraction(props: {items: MenuItem<any>[], drawerProps: DrawerProps}): NavItemProps[] {
     let renderers = props.drawerProps.renderers
     const result: NavItemProps[] = []
-    props.items.map((item) => {
+    props.items.map((item, index) => {
         let renderer = renderers[item.type];
         if (renderer) {
             const localResult = renderer.navTransformer({
@@ -29,7 +29,8 @@ export function navPropsExtraction(props: {items: MenuItem<any>[], drawerProps: 
                         drawerProps: props.drawerProps
                     })
                 },
-                Render: () => null
+                Render: () => null,
+                index: index
             })
             result.push(...localResult)
         }
