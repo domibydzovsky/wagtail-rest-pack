@@ -5,12 +5,13 @@ import {Button, CircularProgress} from "@material-ui/core";
 export interface Props {
     loading: boolean
     onClick: () => void
+    loadNextText?: string
+    loadingText?: string
 }
 
 export function LoadNextButton(props: Props) {
     const classes = useStyles()
-    // todo translate
-    const text = props.loading ? "Loading.." : "Load next"
+    const text = props.loading ? (props.loadingText || "Loading..") : (props.loadNextText || "Load next")
 
     return <div className={classes.root}>
         {props.loading && <CircularProgress className={classes.item}/>}

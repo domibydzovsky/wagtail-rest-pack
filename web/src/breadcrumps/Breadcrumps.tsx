@@ -9,7 +9,8 @@ import HomeIcon from '@material-ui/icons/Home';
 export interface Props {
   openPage: (url: string) => void,
   items: Breadcrump[],
-  loading: boolean
+  loading: boolean,
+  maxItems?: number
 }
 
 export function Breadcrumps(props: Props) {
@@ -29,7 +30,7 @@ export function Breadcrumps(props: Props) {
         title: "Domů"
     }
     const breadcrumps: Breadcrump[] = props.items.concat(homeBreadcrump)
-    const maxItems = 2
+    const maxItems = props.maxItems || 4
 
     return <Breadcrumbs separator="›" maxItems={maxItems} aria-label="breadcrumb" className={classes.root}>
         {breadcrumps.reverse().map((item, indx) => {
