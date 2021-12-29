@@ -17,15 +17,15 @@ class CustomMenu(models.Model):
     name = models.CharField(max_length=50, choices=choices, primary_key=True)
     stream = StreamField(block_types=[
         ContainersSerializer.block_definition([
-            LinkBlockSerializer.block_definition(),
+            LinkBlockSerializer.block_definition(nested=True),
             LinkCategorySerializer.block_definition([
-                LinkBlockSerializer.block_definition(),
+                LinkBlockSerializer.block_definition(nested=True),
                 ChildrenLinksSerializer.block_definition(),
             ])
         ]),
         LinkBlockSerializer.block_definition(),
         LinkCategorySerializer.block_definition([
-            LinkBlockSerializer.block_definition(),
+            LinkBlockSerializer.block_definition(nested=True),
             ChildrenLinksSerializer.block_definition(),
         ])
     ], default=[])

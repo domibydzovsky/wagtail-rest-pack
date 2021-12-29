@@ -40,10 +40,12 @@ function MenuRendererSingle(props: SingleNavMenuProps<any>) {
                     {...item}
                     key={item.id}
                     index={props.index}
-                    Render={(internalProps: { items: MenuItem<any>[], className: string }) => {
+                    context={props.context}
+                    Render={(internalProps: { items: MenuItem<any>[], context?: any, className: string }) => {
                       return internalProps.items.map((nestedItem: MenuItem<any>, nestedIndex: number) => {
-                        MenuRendererSingle({
+                        return MenuRendererSingle({
                           className: internalProps.className,
+                          context: internalProps.context,
                           renderers: renderers,
                           additional: {...props.additional},
                           item: nestedItem,

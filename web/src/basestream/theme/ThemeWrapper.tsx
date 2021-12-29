@@ -18,6 +18,7 @@ declare type Combinations =
     | "whitedark"
 
 export function ThemeWrapper(props: Props) {
+  // todo add better colors for nested elements
     const classes = useStyles()
     const row = props.context.rowData
     const className = row?.color + row!.variant as Combinations

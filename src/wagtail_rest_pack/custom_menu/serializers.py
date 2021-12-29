@@ -37,8 +37,11 @@ class LinkBlockSerializer(serializers.Serializer):
     page = serializers.SerializerMethodField('get_page_repre')
 
     @staticmethod
-    def block_definition():
-        return LinkBlockSerializer.block_name, blocks.StructBlock(local_blocks=[
+    def block_definition(nested:bool=False):
+        local_block_name = LinkBlockSerializer.block_name
+        if nested:
+            local_block_name = 'nested'+local_block_name
+        return local_block_name, blocks.StructBlock(local_blocks=[
             ('name', blocks.TextBlock(max_length=50, required=True, help_text=_('Name of the link'))),
             ('page', blocks.PageChooserBlock(label=_('A page to be opened'))),
             ('icon', blocks.ChoiceBlock(choices=[('none', _('None'))] + icons, default=['none'], label=_('The icon'))),

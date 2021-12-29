@@ -1,6 +1,6 @@
 {
   "name": "wagtail-rest-pack",
-  "version": "1.0.15",
+  "version": "1.0.19",
   "description": "Made with create-react-library",
   "author": "dbydzovsky",
   "license": "MIT",
@@ -30,7 +30,7 @@
     "react-router-dom": "^5.x",
     "@material-ui/core": "^4.x",
     "@material-ui/icons": "4.x",
-    "@material-ui/lab": "^4.x",
+    "@material-ui/lab": "^4.0.0-alpha.60",
     "@material-ui/styles": "4.x",
     "clsx": "^1.x",
     "interweave": "^12.x",

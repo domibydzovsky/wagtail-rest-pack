@@ -53,8 +53,10 @@ def get_stream_field_serializers():
         'container': 'wagtail_rest_pack.streamfield.container.ContainerSerializer',
         'containers': 'wagtail_rest_pack.streamfield.containers.ContainersSerializer',
         'gallery': 'wagtail_rest_pack.streamfield.gallery.GallerySerializer',
+        'embedded': 'wagtail_rest_pack.streamfield.embedded.EmbeddedSerializer',
         'gallery_image': 'wagtail_rest_pack.streamfield.image.GalleryImageSerializer',
         'linkblock': 'wagtail_rest_pack.custom_menu.serializers.LinkBlockSerializer',
+        'nestedlinkblock': 'wagtail_rest_pack.custom_menu.serializers.LinkBlockSerializer',
         'linkcategory': 'wagtail_rest_pack.custom_menu.serializers.LinkCategorySerializer',
         'categorychildren': 'wagtail_rest_pack.custom_menu.serializers.ChildrenLinksSerializer',
     }

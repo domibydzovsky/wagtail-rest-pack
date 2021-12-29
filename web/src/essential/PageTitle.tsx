@@ -35,13 +35,13 @@ const useStyles = makeStyles((theme: Theme) => {
   return {
     root: {
       float: "left",
-      marginTop: theme.spacing(8),
-      marginBottom: theme.spacing(8),
+      marginTop: theme.spacing(2),
+      marginBottom: theme.spacing(2),
     },
     subtitle: {
       margin: 0,
       color: theme.palette.secondary.main,
-      paddingBottom: theme.spacing(4),
+      paddingBottom: theme.spacing(1),
     },
     title: {
       margin: 0,
@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme: Theme) => {
     },
     modifiedAt: {
       margin: 0,
-      paddingTop: theme.spacing(4),
+      paddingTop: theme.spacing(1),
       color: theme.palette.grey.A700,
     }
   }
