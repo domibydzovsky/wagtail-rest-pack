@@ -34,9 +34,10 @@ export function PageTitle(props: Props) {
 const useStyles = makeStyles((theme: Theme) => {
   return {
     root: {
+      width: "100%",
       float: "left",
-      marginTop: theme.spacing(2),
-      marginBottom: theme.spacing(2),
+      paddingBottom: theme.spacing(2),
+      borderBottom: "1px solid " + theme.palette.divider,
     },
     subtitle: {
       margin: 0,

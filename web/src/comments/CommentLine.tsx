@@ -106,7 +106,7 @@ const useStyles = makeStyles((theme: Theme) => {
         actions: {
             color: theme.palette.grey.A700,
             padding: theme.spacing(0.5),
-            fontSize: "0.9em"
+            ...theme.typography.body2
         },
         border: {
             borderBottom: "1px solid " +theme.palette.divider

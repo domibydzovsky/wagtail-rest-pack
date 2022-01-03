@@ -45,7 +45,7 @@ export function DrawerContent(props: DrawerProps) {
         drawerProps: props
     })
     return (
-        <div style={{textAlign: "center"}}>
+        <div key={props.title} style={{textAlign: "center"}}>
             <Typography variant={"h3"}>{props.title}</Typography>
             <Navigation
                 // you can use your own router's api to get pathname

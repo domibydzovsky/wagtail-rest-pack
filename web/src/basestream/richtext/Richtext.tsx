@@ -2,7 +2,7 @@ import React from 'react'
 import {StreamBlockProps} from "../../stream/StreamField";
 import Interweave, {Filter, Matcher, TransformCallback, Attributes, ALLOWED_TAG_LIST} from 'interweave';
 import {linebreak} from "./linebreak";
-import {makeStyles} from "@material-ui/core/styles";
+import {makeStyles, Theme} from "@material-ui/core/styles";
 
 export interface StreamRichTextProps {
     text: string
@@ -55,16 +55,12 @@ export function RichText(props: {text: string, conf?: RichTextConfiguration}) {
         /></div>
 }
 
-const useStyles = makeStyles((theme) => {
+const useStyles = makeStyles((theme: Theme) => {
     return {
         root: {
             "& p,ul,li" :{
                 textAlign: "justify",
-                fontSize: "1.2rem",
-                lineHeight: 1.6,
-                [theme.breakpoints.down("xs")]: {
-                    fontSize: "1.1rem"
-                }
+                ...theme.typography.body1,
             }
         }
     }

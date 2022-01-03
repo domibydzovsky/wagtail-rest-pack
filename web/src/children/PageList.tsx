@@ -3,13 +3,14 @@ import {PageChild} from "./childrenData";
 import {Grid} from "@material-ui/core";
 import {Item} from "./Item";
 import {TagProps} from "../chip/Chip";
+import {PageTransition} from "../model/data";
 
 
 export interface Props {
     className?: string
     children: PageChild[]
     tagProps: TagProps
-    openPage: (url: string) => void
+    openPage: PageTransition
 }
 
 export function PageList(props: Props) {

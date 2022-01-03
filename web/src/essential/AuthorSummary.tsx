@@ -45,7 +45,6 @@ const useStyles = makeStyles((theme: Theme) => {
     return {
         root: {
             padding: theme.spacing(1),
-            borderTop: "1px solid " + theme.palette.divider,
             borderBottom: "1px solid " + theme.palette.divider,
         },
         large: {
@@ -57,15 +56,16 @@ const useStyles = makeStyles((theme: Theme) => {
         },
         name: {
             color: theme.palette.primary.main,
-            fontSize: "1.2em",
             margin: theme.spacing(1),
             display: "block",
             cursor: "pointer",
+            ...theme.typography.caption
         },
         desc: {
             color: theme.palette.grey.A700,
             margin: theme.spacing(1),
-            display: "block"
+            display: "block",
+            ...theme.typography.caption
         }
     }
 })

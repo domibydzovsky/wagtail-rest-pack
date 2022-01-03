@@ -74,10 +74,10 @@ const useStyles = makeStyles((theme: Theme) => {
             padding: 0,
             margin: 0,
             [theme.breakpoints.up("md")]: {
-                height: 350,
+                height: 300,
             },
             [theme.breakpoints.down("sm")]: {
-                height: 250,
+                height: 100,
             },
         },
         text: {

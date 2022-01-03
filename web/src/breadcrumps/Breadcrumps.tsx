@@ -5,9 +5,10 @@ import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 import {Breadcrump} from "./breadcrumpsData";
 import HomeIcon from '@material-ui/icons/Home';
+import {PageTransition} from "../model/data";
 
 export interface Props {
-  openPage: (url: string) => void,
+  openPage: PageTransition
   items: Breadcrump[],
   loading: boolean,
   maxItems?: number
@@ -36,14 +37,14 @@ export function Breadcrumps(props: Props) {
         {breadcrumps.reverse().map((item, indx) => {
             let last = indx === (breadcrumps.length - 1);
             if (last) {
-                return <Typography>{item.title}</Typography>
+                return <Typography key={item.url}>{item.title}</Typography>
             }
-            return <div title={item.url}>
+            return <div title={item.url} key={item.url}>
 
                 <Link className={classes.item}
                       key={item.id}
                       onClick={() => {
-                          props.openPage(item.url)
+                          props.openPage.openPage({url: item.url, title: item.title})
                       }}>
                     {item.icon && item.icon}{item.title}
                 </Link>

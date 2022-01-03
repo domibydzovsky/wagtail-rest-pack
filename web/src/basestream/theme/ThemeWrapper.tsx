@@ -29,9 +29,10 @@ export function ThemeWrapper(props: Props) {
 const useStyles = makeStyles((theme: Theme) => {
     return {
         root: {
-            marginTop: 10,
-            marginBottom: 10,
-            padding: 20
+            marginTop: theme.spacing(1),
+            marginBottom: theme.spacing(1),
+            paddingBottom: theme.spacing(2),
+            paddingTop: theme.spacing(2),
         },
         primarylight: {
             backgroundColor: theme.palette.primary.light,

@@ -37,7 +37,7 @@ export function DominantPageChildView(props: Props) {
         </Grid>
         <Grid item container xs={12} sm justifyContent={"center"} alignItems={"center"} alignContent={"center"}>
             <div>
-                <h2 className={classes.header} onClick={() => props.config.actions.openPage(page.url)}>{page.banner.title}</h2>
+                <h2 className={classes.header} onClick={() => props.config.actions.openPage.openPage({url: page.url, title: page.banner.title})}>{page.banner.title}</h2>
                 <Chips names={page.keywords || []}
                        tagProps={props.config.tagProps}/>
                 <p className={classes.text}>
@@ -63,6 +63,8 @@ const useStyles = makeStyles((theme: Theme) => {
             }
         },
         text: {
+          textAlign: "justify",
+          textIndent: "none",
         },
         date: {
             fontWeight: "bold",

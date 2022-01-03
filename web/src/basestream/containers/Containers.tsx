@@ -13,9 +13,9 @@ export function StreamContainers(props: StreamBlockProps<ContainersProps>) {
     const classes = useStyles()
     return <ThemeWrapper context={props.context}>
         <Container className={classes.root}>
-        <Grid container>
-            {props.recursive(props.value.stream, {containerized: true})}
-        </Grid>
+          <Grid container>
+              {props.recursive(props.value.stream, {containerized: true})}
+          </Grid>
         </Container>
     </ThemeWrapper>
 }
@@ -23,7 +23,8 @@ export function StreamContainers(props: StreamBlockProps<ContainersProps>) {
 const useStyles = makeStyles(() => {
     return {
         root: {
-            display: "flex"
+            display: "flex",
+            clear: "both",
         }
     }
 })

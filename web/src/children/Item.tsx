@@ -12,11 +12,12 @@ import {PageChild} from "./childrenData";
 import {Chips, TagProps} from "../chip/Chip";
 import OpenInBrowserIcon from '@material-ui/icons/OpenInBrowser';
 import {toDateStr} from "../utils/date";
+import {PageTransition} from "../model/data";
 
 export interface Props {
   self: PageChild,
   tagProps: TagProps,
-  openPage: (url: string)=>void
+  openPage: PageTransition
 }
 
 export function Item(props: Props) {
@@ -34,7 +35,7 @@ export function Item(props: Props) {
                 }
                 action={
                     <IconButton aria-label="goto"
-                                onClick={() => props.openPage(data.url)}
+                                onClick={() => props.openPage.openPage({url: data.url, title: data.banner.title})}
                                 title={data.url}>
                         <OpenInBrowserIcon />
                     </IconButton>

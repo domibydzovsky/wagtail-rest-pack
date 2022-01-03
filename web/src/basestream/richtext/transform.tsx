@@ -6,11 +6,12 @@ import {DocumentLink} from "./DocumentLink";
 import {IframeEmbedded} from "./IframeEmbedded";
 import {Image} from "./Image";
 import {Blockquote} from "./Blockquote";
+import {PageTransition} from "../../model/data";
 
 
 export interface Props {
     decorated?: TransformCallback,
-    openPage: (url: string)=> void
+    pageTransition: PageTransition
 }
 
 const externalPrefixes = ["http://", "https://", "www"]
@@ -36,7 +37,7 @@ export const LinksTransformer = (props: Props): TransformCallback => {
                 if (documentPrefixes.some(prefix => href.startsWith(prefix))) {
                     return <DocumentLink href={href} children={children}/>
                 } else {
-                    return <InternalLink href={href} onOpen={props.openPage} children={children}/>
+                    return <InternalLink href={href} onOpen={props.pageTransition} children={children}/>
                 }
             }
         } else if (props.decorated) {

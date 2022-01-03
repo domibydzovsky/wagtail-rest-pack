@@ -1,17 +1,11 @@
 import React from 'react'
-import {CreatePageLinkRenderer} from "./PageLink";
-import {MenuItem, NavMenuProps, Renderers, SingleNavMenuProps} from "./data";
+import {MenuItem, NavMenuProps, SingleNavMenuProps} from "./data";
+import {PageTransition} from "../model/data";
 
 
 export interface RenderersConf {
   singleLevel?: boolean
-  openPage: (url: string) => void
-}
-
-export function getAllRenderers(props: RenderersConf): Renderers {
-  return {
-    "linkblock": CreatePageLinkRenderer({singleLevelOnly: props.singleLevel, onClick: props.openPage})
-  }
+  openPage: PageTransition
 }
 
 export function MenuRenderer(props: NavMenuProps<any>) {

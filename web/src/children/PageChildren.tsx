@@ -5,6 +5,7 @@ import {TagProps} from "../chip/Chip";
 import {HideOnPrint} from "../essential/HideOnPrint";
 import {makeStyles, Theme} from "@material-ui/core/styles";
 import {PageList} from "./PageList";
+import {PageTransition} from "../model/data";
 
 export interface Props {
     children: PageChild[]
@@ -12,7 +13,7 @@ export interface Props {
     tagProps: TagProps
     title: string,
     containerMaxWidth: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | false;
-    openPage: (url: string) => void
+    openPage: PageTransition
 }
 
 export function PageChildren(props: Props) {

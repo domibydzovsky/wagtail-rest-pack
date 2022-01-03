@@ -4,6 +4,7 @@ import {FormContext} from "../streamform/Form";
 import {FormHandlerFactory} from "../streamform/Handler";
 import {PageChild} from "../children/childrenData";
 import {TagProps} from "../chip/Chip";
+import {PageTransition} from "../model/data";
 
 export interface StreamBlock<V> {
     type: string
@@ -47,7 +48,7 @@ export interface StreamActions {
     openSnack: (text: string) => void
     openDialog: (props: DialogProps<any>) => void
     fetchChildren: (pageId: number, pagination: Pagination, params: any, onDone: (result: PageChild[]|undefined) => void) => void
-    openPage: (url: string) => void
+    openPage: PageTransition
 }
 
 export interface StreamFieldConfig {

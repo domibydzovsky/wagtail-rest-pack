@@ -9,6 +9,5 @@ export {
   MenuItem
 } from "./data"
 export {
-  RenderersConf, getAllRenderers, MenuRenderer
+  RenderersConf, MenuRenderer
 } from "./MenuRenderer"
-export {CreatePageLink, PageLinkConf, CreatePageLinkRenderer, PageLinkProps, PageLink} from "./PageLink"
