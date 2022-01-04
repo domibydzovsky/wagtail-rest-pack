@@ -1,7 +1,7 @@
 import React from 'react'
 import {makeStyles, Theme} from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
-import {Grid} from "@material-ui/core";
+import {Grid, Link} from "@material-ui/core";
 
 export interface PageAuthor {
     username: string
@@ -25,6 +25,10 @@ export interface Props {
 export function AuthorSummary(props: Props) {
     const classes = useStyles()
     const name = props.author.last_name + " " + props.author.first_name
+    const onClick = (e: any) => {
+      e.preventDefault()
+      props.onClick()
+    }
     return <div className={classes.root}>
         {props.variant === "long" && <h4>Zveřejnil(a):</h4> }
         <Grid container>
@@ -32,7 +36,7 @@ export function AuthorSummary(props: Props) {
                 <Avatar alt={name} src={props.author?.profile?.avatar || ""} className={classes.large}/>
             </Grid>
             <Grid item justify={"center"} alignItems={"center"} alignContent={"center"}>
-                <span className={classes.name} onClick={props.onClick}>{name}</span>
+                <Link className={classes.name} onClick={onClick}>{name}</Link>
                 <span className={classes.desc} >{props.author.description}</span>
             </Grid>
         </Grid>
