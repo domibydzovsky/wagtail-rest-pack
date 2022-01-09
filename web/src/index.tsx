@@ -1,16 +1,3 @@
-import * as React from 'react'
-import styles from './styles.module.css'
-
-interface Props {
-  text: string
-}
-
-export const ExampleComponent = ({ text }: Props) => {
-  return <div className={styles.test}>
-    xx
-  </div>
-}
-
 export * from "./utils/export"
 export * from "./streamform/export"
 export * from "./stream/export"
@@ -25,4 +12,5 @@ export * from "./breadcrumps/export"
 export * from "./basestream/export"
 export * from "./drawer/export"
 export * from "./navmenu/export"
+export * from "./model/export"
 
