@@ -19,11 +19,10 @@ export function PageTitle(props: Props) {
       {props.variant === "h2" && <h3 className={classes.subtitle}>{props.subTitle}</h3>}
     </React.Fragment>}
     {props.variant === "h1" && <React.Fragment>
-      <h1 className={classes.title}>yy{props.title}</h1>
+      <h1 className={classes.title}>{props.title}</h1>
     </React.Fragment>}
-
     {props.variant === "h2" && <React.Fragment>
-      <h2 className={classes.title}>yy{props.title}</h2>
+      <h2 className={classes.title}>{props.title}</h2>
     </React.Fragment>}
     {props.last_published_at && <p className={classes.modifiedAt}>
       Zveřejněno {toDateStr(props.last_published_at)}

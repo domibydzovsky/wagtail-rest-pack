@@ -10,6 +10,7 @@ def embedded():
 
 embedded_variants = [
     ('signtranslate', _('Znakovaný překlad')),
+    ('video', _('Obyčejné video')),
 ]
 class EmbeddedSerializer(serializers.Serializer):
     block_name = 'embedded'

@@ -24,6 +24,7 @@ export function Item(props: Props) {
     const classes = useStyles();
 
     const data = props.self
+    const openPage = () => props.openPage.openPage({url: data.url, title: data.banner.title});
     return (
         <Card className={classes.root}>
             <CardHeader
@@ -35,7 +36,7 @@ export function Item(props: Props) {
                 }
                 action={
                     <IconButton aria-label="goto"
-                                onClick={() => props.openPage.openPage({url: data.url, title: data.banner.title})}
+                                onClick={openPage}
                                 title={data.url}>
                         <OpenInBrowserIcon />
                     </IconButton>
@@ -44,6 +45,7 @@ export function Item(props: Props) {
                 subheader={toDateStr(data.last_published_at)}
             />
             {data.banner.image && <CardMedia
+                onClick={openPage}
                 className={classes.media}
                 image={data.banner.image.url}
                 title={data.banner.title}
@@ -51,7 +53,6 @@ export function Item(props: Props) {
             <CardContent>
                 <Typography variant="body2" color="textSecondary" component="p">
                     {data.banner.subtitle}
-
                 </Typography>
             </CardContent>
             <CardActions disableSpacing>
@@ -85,6 +86,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         boxShadow: theme.shadows[5],
     },
     media: {
+        cursor: "pointer",
         height: 0,
         paddingTop: '56.25%', // 16:9
     },

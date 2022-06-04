@@ -61,7 +61,7 @@ export function Gallery(props: GalleryProps) {
             <h2>{props.name}</h2>
         </Container>}
         <LargeContainer>
-            <Grid container alignItems={"center"} justify={"center"}>
+            <Grid container alignItems={"center"} justifyContent={"center"}>
                 { props.images.map((image,index) => {
                     return <Grid item xs={12} sm={6} md={4} lg={3} key={index}
                                  className={classes.item}

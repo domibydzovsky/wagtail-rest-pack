@@ -1,6 +1,6 @@
 import React from 'react'
 import {PageChild} from "./childrenData";
-import {Grid} from "@material-ui/core";
+import {Grid, Paper} from "@material-ui/core";
 import {LazyImage} from "../essential/LazyLoadImage";
 import {makeStyles, Theme} from "@material-ui/core/styles";
 import {toDateStr} from "../utils/date";
@@ -33,23 +33,29 @@ export function TripplePageChildView(props: Props) {
             const banner = page.banner
             const image = banner.image
             const date = toDateStr(page.last_published_at)
-            return <Grid container xs={12} md={4} key={page.id} sm item direction={"column"}>
-                <Grid item className={classes.image}>
-                    <LazyImage width={image.width * scaleFactor} height={image.height * scaleFactor} src={image.url} alt={image.alt}/>
+            const onClick = () => props.config.actions.openPage.openPage({url: page.url, title: page?.banner.title})
+            return <Grid container xs={12} md={4} key={page.id} sm item direction={"column"} className={classes.item}>
+                        <Grid item container justifyContent={"center"} alignItems={"center"} alignContent={"center"}>
+                            <div style={{maxWidth: image.width}}>
+                                <h2 className={classes.header} onClick={onClick}>{banner.title}</h2>
+                                <Chips names={page.keywords || []}
+                                       tagProps={props.config.tagProps}/>
+                                <LazyImage width={image.width * scaleFactor}
+                                           height={image.height * scaleFactor}
+                                           onClick={onClick}
+                                           src={image.url}
+                                           alt={image.alt}
+                                           className={classes.image}
+                                />
+                                <p className={classes.text}>
+                                    <span className={classes.date}>{date}</span>
+                                    {banner.subtitle}
+                                {/*    todo delsi text vetsi max_length */}
+                                </p>
+                            </div>
+                        </Grid>
                 </Grid>
-                <Grid item container justifyContent={"center"} alignItems={"center"} alignContent={"center"}>
-                    <div style={{maxWidth: image.width}}>
-                        <h2 className={classes.header} onClick={() => props.config.actions.openPage.openPage({url: page.url, title: page?.banner.title})}>{banner.title}</h2>
-                        <Chips names={page.keywords || []}
-                               tagProps={props.config.tagProps}/>
-                        <p className={classes.text}>
-                            <span className={classes.date}>{date}</span>
-                            {banner.subtitle}
-                        {/*    todo delsi text vetsi max_length */}
-                        </p>
-                    </div>
-                </Grid>
-            </Grid>
+
         })}
     </Grid>
 }
@@ -64,8 +70,18 @@ function LoadingBlock() {
 
 const useStyles = makeStyles((theme: Theme) => {
     return {
+        paper: {
+            width: "100%"
+        },
         root: {
-            margin: theme.spacing(2)
+            margin: theme.spacing(2),
+        },
+        item: {
+            borderBottom: "1px solid " + theme.palette.divider,
+            [theme.breakpoints.up("md")]: {
+                borderLeft: "1px solid " + theme.palette.divider,
+                borderRight: "1px solid " + theme.palette.divider,
+            }
         },
         header: {
             display: "inline",
@@ -76,15 +92,17 @@ const useStyles = makeStyles((theme: Theme) => {
         },
         image: {
             textAlign: "center",
+            display: "block",
+            margin: "auto"
         },
         text: {
             textAlign: "justify",
-            textIndent: "none",
+            textIndent: "0px !important",
         },
         date: {
             fontWeight: "bold",
             color: theme.palette.primary.main,
-            margin: 5
+            marginRight: 5
         }
     }
 })

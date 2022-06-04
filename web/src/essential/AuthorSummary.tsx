@@ -31,11 +31,11 @@ export function AuthorSummary(props: Props) {
     }
     return <div className={classes.root}>
         {props.variant === "long" && <h4>Zveřejnil(a):</h4> }
-        <Grid container>
+        <Grid container alignItems={"center"} alignContent={"center"}>
             <Grid item className={classes.avatar}>
                 <Avatar alt={name} src={props.author?.profile?.avatar || ""} className={classes.large}/>
             </Grid>
-            <Grid item justify={"center"} alignItems={"center"} alignContent={"center"}>
+            <Grid item justifyContent={"center"} >
                 <Link className={classes.name} onClick={onClick}>{name}</Link>
                 <span className={classes.desc} >{props.author.description}</span>
             </Grid>

@@ -1,59 +1,51 @@
 import React, {useRef} from 'react'
 import {Node, NodeConfig} from "interweave";
-import {useRatio} from "../../utils/ratio";
-import {LazyImage} from "../../essential/LazyLoadImage";
 import {makeStyles} from "@material-ui/core/styles";
-import {Tooltip} from "@material-ui/core";
-import PlayCircleFilledIcon from "@material-ui/icons/PlayCircleFilled";
-import {HideOnPrint} from "../../essential/HideOnPrint";
+import {IFrameVideo} from "./IFrameVideo";
+import {TransformCallback} from "interweave/src/types";
 
-const allowedMax = {
-    width: 500,
-    height: 400
+
+export type EmbedType = "translate" | "normal"
+
+export interface IFrameRendererProps {
+    node: HTMLElement,
+    children: Node[],
+    config: NodeConfig,
+    attrs: any,
+    type: string | undefined
+}
+export type IFrameRenderer = React.ComponentType<IFrameRendererProps>
+
+export const getAttributes = (node: HTMLElement): any => {
+    const properties: any= {}
+    node.getAttributeNames().forEach((attr)=> {
+        properties[attr] = node.getAttribute(attr)
+    })
+    return properties
+}
+export function createIframeEmbedded(renderers: Map<string, IFrameRenderer>, DefaultRenderer: IFrameRenderer): TransformCallback {
+    return (node: HTMLElement, children: Node[], config: NodeConfig) => {
+        const attrs = getAttributes(node)
+        let type = attrs['data-type']
+        const props : IFrameRendererProps = {
+            config, children, node, attrs, type
+        }
+        const Renderer = renderers.get(type)
+        if (!Renderer) {
+            return <DefaultRenderer {...props} />
+        }
+        return <Renderer {...props}/>
+    }
 }
 
-export function IframeEmbedded(props: {node: HTMLElement, children: Node[], config: NodeConfig}) {
+export function IframeEmbedded(props: {node: HTMLElement, children: Node[], config: NodeConfig, autoPlay?: boolean}) {
     const properties: any= {}
     props.node.getAttributeNames().forEach((attr)=> {
         properties[attr] = props.node.getAttribute(attr)
     })
     const ref = useRef(null);
-    let {width, height} = useRatio(ref, allowedMax, {
-        width: Number(properties["width"]),
-        height: Number(properties["height"])
-    });
-    properties["width"] = width;
-    properties["height"] = height;
-    properties["frameBorder"] = properties["frameborder"]
-    delete properties["frameborder"]
-    properties["allowFullScreen"] = properties["allowfullscreen"]
-    delete properties["allowfullscreen"]
-
-    let title = properties['data-title'] || ""
-    let thumbnailUrl = properties['data-thumbnail'] || undefined
-    const classes = useStyles()
-    const [opened, setOpened] = React.useState(thumbnailUrl === undefined)
-
-    if (opened) {
-        return <HideOnPrint>
-            <div ref={ref} className={classes.root}>
-                <div className={classes.videoThumbnail}>
-                    <iframe {...properties}/>
-                </div>
-            </div>
-        </HideOnPrint>
-    } else {
-        return <HideOnPrint>
-            <div ref={ref} className={classes.root}>
-                <Tooltip title={title} >
-                    <div onClick={() => {setOpened(true)}} className={classes.videoThumbnail}>
-                        <LazyImage width={width} height={height} src={thumbnailUrl} alt={title}/>
-                        <div className={classes.thumbnailInner}>Zobrazit video <PlayCircleFilledIcon color="primary"/></div>
-                    </div>
-                </Tooltip>
-            </div>
-        </HideOnPrint>
-    }
+    // todo if autoplay, add autostart property
+    return <IFrameVideo target={ref} attrs={properties} autoPlay={props.autoPlay}/>
 }
 
 const useStyles = makeStyles(theme => {

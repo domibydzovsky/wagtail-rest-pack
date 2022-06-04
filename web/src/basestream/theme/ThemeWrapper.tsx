@@ -37,18 +37,28 @@ const useStyles = makeStyles((theme: Theme) => {
         primarylight: {
             backgroundColor: theme.palette.primary.light,
             boxShadow: theme.shadows[5],
+            color: theme.palette.primary.contrastText,
+            "& h2, h3": {
+                color: "white !important",
+            },
+            "& blockquote":{
+                display: "none"
+            }
         },
         primarydark: {
             backgroundColor: theme.palette.primary.dark,
             boxShadow: theme.shadows[5],
+            color: theme.palette.primary.contrastText
         },
         secondarylight: {
             backgroundColor: theme.palette.secondary.light,
             boxShadow: theme.shadows[5],
+            color: theme.palette.secondary.contrastText
         },
         secondarydark: {
             backgroundColor: theme.palette.secondary.dark,
             boxShadow: theme.shadows[5],
+            color: theme.palette.secondary.contrastText
         },
         whitelight: {},
         whitedark: {}

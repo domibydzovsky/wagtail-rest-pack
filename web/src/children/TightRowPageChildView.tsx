@@ -33,18 +33,19 @@ export function TightRowPageChildView(props: Props) {
     let page = props.page!!
     const image = page.banner.image
     const date = toDateStr(page.last_published_at)
-
+    const onClick = () => props.config.actions.openPage.openPage({url: page.url, title: page.banner.title});
     return <Grid container className={classes.root} spacing={2} alignItems={"center"}>
         <Grid item>
             <LazyImage width={image.width * scaleFactor}
                        height={image.height * scaleFactor}
+                       onClick={onClick}
                        src={image.url}
                        alt={image.alt}/>
         </Grid>
         <Grid item xs={12} sm justifyContent={"center"} alignItems={"center"} alignContent={"center"}>
             <div>
                 <h2 className={classes.header}
-                    onClick={() => props.config.actions.openPage.openPage({url: page.url, title: page.banner.title})}>
+                    onClick={onClick}>
                   {page.banner.title}
                 </h2>
                 <Chips names={page.keywords || []}

@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from rest_framework.fields import empty
 from wagtail.core import blocks
 from wagtail.core.blocks import StreamBlock
 from django.utils.translation import gettext_lazy as _
@@ -26,5 +27,5 @@ class ContainerBlock(blocks.StructBlock):
 
     def __init__(self, local_blocks, *args, **kwargs):
         super().__init__(local_blocks=[
-            ('stream', StreamBlock(local_blocks=local_blocks, label=_('Content of Column'))),
+            ('stream', StreamBlock(empty=True, local_blocks=local_blocks, label=_('Content of Column'))),
         ], **kwargs)

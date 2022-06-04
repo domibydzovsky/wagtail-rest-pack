@@ -94,8 +94,8 @@ export function Text(props: StreamBlockProps<Props>) {
                 context!!.setFocused();
             }}
             label={label}
-            rows={data.minRows || 4}
-            rowsMax={10}
+            minRows={data.minRows || 4}
+            maxRows={10}
             disabled={data.readonly || context!!.disabled}
             fullWidth
             error={focused && !context!!.disabled && (message !== undefined || backendError !== undefined)}

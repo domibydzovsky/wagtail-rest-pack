@@ -1,6 +1,6 @@
 import React from 'react'
 import {PageChild} from "./childrenData";
-import {Grid} from "@material-ui/core";
+import {Grid, Paper} from "@material-ui/core";
 import {LazyImage} from "../essential/LazyLoadImage";
 import {makeStyles, Theme} from "@material-ui/core/styles";
 import {toDateStr} from "../utils/date";
@@ -28,32 +28,45 @@ export function DominantPageChildView(props: Props) {
         </Grid>
     }
     let page = props.page!!
-    return <Grid container className={classes.root} spacing={2}>
-        <Grid item>
-            <LazyImage width={page.banner.image.width}
-                            height={page.banner.image.height}
-                            src={page.banner.image.url}
-                            alt={page.banner.image.alt}/>
-        </Grid>
-        <Grid item container xs={12} sm justifyContent={"center"} alignItems={"center"} alignContent={"center"}>
-            <div>
-                <h2 className={classes.header} onClick={() => props.config.actions.openPage.openPage({url: page.url, title: page.banner.title})}>{page.banner.title}</h2>
-                <Chips names={page.keywords || []}
-                       tagProps={props.config.tagProps}/>
-                <p className={classes.text}>
-                    <span className={classes.date}>{toDateStr(page.last_published_at)}</span>
-                    {page.banner.subtitle}
-                </p>
-            </div>
+    const onClick = () => {
+        props.config.actions.openPage.openPage({url: page.url, title: page.banner.title})
+    }
+    return <Grid container spacing={2} className={classes.root}>
+
+                <Grid item xs={12} sm alignItems={"center"} alignContent={"center"}>
+                    <h2 className={classes.header}
+                        onClick={onClick}>
+                        {page.banner.title}
+                    </h2>
+                    <Chips names={page.keywords || []}
+                           tagProps={props.config.tagProps}/>
+                    <p className={classes.text}>
+                        <span className={classes.date}>{toDateStr(page.last_published_at)}</span>
+                        {page.banner.subtitle}
+                    </p>
+                </Grid>
+                <Grid item xs={12} sm>
+                    <LazyImage width={page.banner.image.width}
+                               height={page.banner.image.height}
+                               onClick={onClick}
+                               src={page.banner.image.url}
+                               alt={page.banner.image.alt}/>
+                </Grid>
         </Grid>
 
-    </Grid>
 }
 
 const useStyles = makeStyles((theme: Theme) => {
     return {
+        paper: {
+            width: "100%"
+        },
         root: {
-            margin: theme.spacing(2)
+            padding: theme.spacing(1),
+            [theme.breakpoints.up("md")]: {
+                margin: theme.spacing(2)
+            },
+            borderBottom: "1px solid " + theme.palette.divider
         },
         header: {
             display: "inline",
@@ -64,12 +77,12 @@ const useStyles = makeStyles((theme: Theme) => {
         },
         text: {
           textAlign: "justify",
-          textIndent: "none",
+          textIndent: "0px !important",
         },
         date: {
             fontWeight: "bold",
             color: theme.palette.primary.main,
-            margin: 5
+            marginRight: 5
         }
     }
 })

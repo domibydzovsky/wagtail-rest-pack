@@ -4,8 +4,10 @@ from wagtail.core.blocks import RichTextBlock
 from wagtail.core.templatetags.wagtailcore_tags import richtext as richtext_filter
 from django.utils.translation import gettext as _
 
-def rich_text():
-    return RichTextSerializer.block_definition()
+
+
+def rich_text(add_features: [str]):
+    return RichTextSerializer.block_definition(add_features)
 
 
 class RichTextSerializer(serializers.Serializer):
@@ -13,10 +15,11 @@ class RichTextSerializer(serializers.Serializer):
     text = serializers.SerializerMethodField('get_text')
 
     @staticmethod
-    def block_definition():
+    def block_definition(add_features: [str] = []):
         features = ['h2', 'h3', 'italic', 'bold', 'ol', 'ul', 'hr', 'link',
                     'document-link', 'image', 'embed', 'code',
                     'superscript', 'subscript', 'strikethrough', 'blockquote']
+        features.extend(add_features)
         return RichTextSerializer.block_name, RichTextBlock(features=features,icon='doc-full')
 
     class Meta:
