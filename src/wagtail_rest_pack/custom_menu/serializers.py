@@ -1,8 +1,8 @@
 from django.conf import settings
 from rest_framework import serializers
-from wagtail.core import blocks
+from wagtail import blocks
 from django.utils.translation import gettext_lazy as _
-from wagtail.core.blocks import StreamBlock
+from wagtail.blocks import StreamBlock
 
 from wagtail_rest_pack.streamfield.serializers import SettingsStreamFieldSerializer
 

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from wagtail.core import blocks
+from wagtail import blocks
 from wagtail_rest_pack.generic_forms.blocks.text_block import InputBlockSerializer
 from wagtail_rest_pack.generic_forms.blocks.visibility import visibility_choices
 from wagtail_rest_pack.streamfield.serializers import SettingsStreamFieldSerializer

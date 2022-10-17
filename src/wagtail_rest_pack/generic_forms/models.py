@@ -1,6 +1,6 @@
 from django.db import models
 from modelcluster.models import ClusterableModel
-from wagtail.core.fields import StreamField
+from wagtail.fields import StreamField
 from wagtail.snippets.models import register_snippet
 from wagtail_rest_pack.generic_forms.blocks.group_block import GroupBlockSerializer
 from wagtail_rest_pack.generic_forms.blocks.submit_block import SubmitBlockSerializer
@@ -32,7 +32,7 @@ class FormBuilder(ClusterableModel):
     created_on = models.DateTimeField(auto_now_add=True)
     security = models.CharField(max_length=30, default=next(iter(security_choices.items()))[0],
                                 choices=[(choice[0],choice[1]['label']) for choice in security_choices.items()])
-    stream = StreamField(block_types=[
+    stream = StreamField(use_json_field=True, block_types=[
         InputBlockSerializer.block_definition(),
         GroupBlockSerializer.block_definition(),
         SubmitBlockSerializer.block_definition(),

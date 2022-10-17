@@ -1,5 +1,5 @@
 from django.db.models.signals import post_save, post_delete
-from wagtail.core.models import Page
+from wagtail.models import Page
 from .index import indexUpdated
 from .index import indexDeleted
 

@@ -2,7 +2,7 @@ from django.conf import settings
 from rest_framework import serializers
 from rest_framework.fields import Field
 from rest_framework.serializers import ModelSerializer
-from wagtail.core.models import Page
+from wagtail.models import Page
 from wagtail.images.api.fields import ImageRenditionField
 from wagtail_rest_pack.streamfield.serializers import SettingsStreamFieldSerializer
 

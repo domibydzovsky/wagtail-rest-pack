@@ -1,9 +1,11 @@
+import logging
 
 from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import BasePermission
 
 from .models import get_recaptcha_instance
 
+logger = logging.getLogger(__name__)
 
 class AuthenticatedOrRecaptcha(BasePermission):
     def has_permission(self, request, view):
@@ -12,6 +14,7 @@ class AuthenticatedOrRecaptcha(BasePermission):
         try:
             get_recaptcha_instance().verify(request)
             return True
-        except ValidationError:
+        except ValidationError as e:
+            logger.error(e)
             return False
 

@@ -4,7 +4,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.db import models
 
 from wagtail.snippets.models import register_snippet
-
+from django.utils.html import strip_tags
 @register_snippet
 class Comment(models.Model):
     parent = models.ForeignKey('self', on_delete=models.CASCADE, related_name='children', blank=True, null=True)
@@ -20,6 +20,8 @@ class Comment(models.Model):
 
     class Meta:
         ordering = ['created_on', 'created_by']
+        verbose_name = 'Komentář' # todo translate
+        verbose_name_plural = 'Komentáře' # todo translate
 
     def __str__(self):
-        return 'Comment {}'.format(self.body)
+        return 'Comment {}'.format(strip_tags(self.body))

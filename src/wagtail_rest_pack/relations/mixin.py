@@ -1,11 +1,11 @@
-from wagtail.admin.edit_handlers import InlinePanel
+from wagtail.admin.panels import InlinePanel
 from wagtail.api import APIField
 from wagtail_rest_pack.page_banner.serializers import BanneredChildrenSerializer
 from wagtail_rest_pack.relations.models import Relation
 
 from wagtail_rest_pack.sitesettings.serializers import SiteSettingsSerializer
 from django.utils.translation import gettext as _
-from wagtail.core.models import Page
+from wagtail.models import Page
 
 
 class RelationsMixin:

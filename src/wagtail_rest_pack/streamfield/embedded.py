@@ -1,6 +1,6 @@
 from builtins import super
 
-from wagtail.core import blocks
+from wagtail import blocks
 from wagtail.embeds.embeds import get_embed
 from rest_framework import serializers
 from django.utils.translation import gettext as _

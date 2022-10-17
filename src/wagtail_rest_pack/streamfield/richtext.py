@@ -1,7 +1,7 @@
 from rest_framework import serializers
-from wagtail.core.blocks import RichTextBlock
+from wagtail.blocks import RichTextBlock
 
-from wagtail.core.templatetags.wagtailcore_tags import richtext as richtext_filter
+from wagtail.templatetags.wagtailcore_tags import richtext as richtext_filter
 from django.utils.translation import gettext as _
 
 

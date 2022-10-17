@@ -1,5 +1,5 @@
 from rest_framework.serializers import Field
-from wagtail.core.models import Page
+from wagtail.models import Page
 
 
 class BreadcrumpSerializer(Field):

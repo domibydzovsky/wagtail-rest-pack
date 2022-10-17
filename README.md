@@ -3,28 +3,20 @@
 # wagtail-rest-pack
 
 =====
-Rest Page Children
+Wagtail Rest Pack
 =====
 
-Wagtail app creating an views that expose children of pages
+Wagtail app easing development of single page application with specific complex needs. And for fun.
 
-Quick start
+Deployment Backend
 -----------
-
-1. Add "polls" to your INSTALLED_APPS setting like this::
-
-   INSTALLED_APPS = [
-   ...
-   'wagtail_rest_pack',
-   ]
-
-2. Include the polls URLconf in your project urls.py like this::
-
-   url(r'^polls/', include('polls.urls')),
-
-3. Run `python manage.py migrate` to create the polls models.
-
-4. Start the development server and visit http://127.0.0.1:8000/admin/
-   to create a poll (you'll need the Admin app enabled).
-
-5. Visit http://127.0.0.1:8000/polls/ to participate in the poll.
+1. Push your changes
+2. Increment version in setup.cfg
+3. Start push.sh command, which pushes to repository
+   
+Deployment Frontend
+-----------
+1. Increment version in package.json
+2. Push your changes
+3. run "npm run build"
+4. run "npm run publish"

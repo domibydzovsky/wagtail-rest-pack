@@ -1,7 +1,7 @@
 import re
 
 from django.core.exceptions import ValidationError
-from wagtail.core import blocks
+from wagtail import blocks
 
 from rest_framework import serializers
 from wagtail_rest_pack.generic_forms.blocks.visibility import visibility_choices

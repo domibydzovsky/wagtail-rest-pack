@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'wagtail.images',
     'wagtail.search',
     'wagtail.admin',
-    'wagtail.core',
+    'wagtail',
 
     'wagtail.api.v2',
     'rest_framework',
@@ -63,7 +63,6 @@ INSTALLED_APPS = [
     'wagtail.contrib.modeladmin',
 
     'django',
-    'wagtail',
     'wagtail_rest_pack.breadcrumps',
     'wagtail_rest_pack.page_banner',
     'wagtail_rest_pack.sitesettings',

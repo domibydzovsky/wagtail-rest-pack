@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from rest_framework.fields import empty
-from wagtail.core import blocks
-from wagtail.core.blocks import StreamBlock
+from wagtail import blocks
+from wagtail.blocks import StreamBlock
 from django.utils.translation import gettext_lazy as _
 
 from wagtail_rest_pack.streamfield.serializers import SettingsStreamFieldSerializer
@@ -17,7 +17,8 @@ class ContainerSerializer(serializers.Serializer):
 
     @staticmethod
     def block_definition(local_blocks):
-        return ContainerSerializer.block_name, ContainerBlock(local_blocks=local_blocks, icon='doc-full', label=_('Column'))
+        # _('Column') todo translate
+        return ContainerSerializer.block_name, ContainerBlock(local_blocks=local_blocks, icon='doc-full', label="Sloupec")
 
     class Meta:
         fields = ('stream',)

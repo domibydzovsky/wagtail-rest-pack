@@ -1,7 +1,7 @@
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 from rest_framework import serializers
-from wagtail.core import blocks
+from wagtail import blocks
 from wagtail_rest_pack.generic_forms.blocks.generic_input import GenericInputBlock, visibility_choices, text_validation_choices
 
 from django.utils.translation import gettext_lazy as _

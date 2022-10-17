@@ -1,7 +1,7 @@
 
 from rest_framework import serializers, generics
 from rest_framework.permissions import AllowAny
-from wagtail.core.fields import StreamField
+from wagtail.fields import StreamField
 from wagtail_rest_pack.exception.handler import custom_exception_handler
 from wagtail_rest_pack.streamfield.serializers import SettingsStreamFieldSerializer
 from django.utils.translation import gettext_lazy as _

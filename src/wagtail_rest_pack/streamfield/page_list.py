@@ -1,7 +1,7 @@
 from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
-from wagtail.core import blocks
-from wagtail.core.blocks import PageChooserBlock
+from wagtail import blocks
+from wagtail.blocks import PageChooserBlock
 
 
 def page_list():
@@ -22,7 +22,8 @@ class PageListSerializer(serializers.Serializer):
 
     @staticmethod
     def block_definition():
-        return PageListSerializer.block_name, PageListStruct(label=_('List children of selected page'))
+        # _('List children of selected page') todo translate
+        return PageListSerializer.block_name, PageListStruct(label="Seznam stránek")
 
     class Meta:
         fields = ('variant', 'children_of',)

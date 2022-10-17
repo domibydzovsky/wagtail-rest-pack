@@ -1,4 +1,4 @@
-from wagtail.core import blocks
+from wagtail import blocks
 
 from wagtail_rest_pack.generic_forms.actions.action import FormAction
 from django.utils.translation import gettext as _

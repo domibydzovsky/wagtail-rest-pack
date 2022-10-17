@@ -2,7 +2,7 @@ from wagtail.api import APIField
 from django.db import models
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.images import get_image_model_string
-from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.images.api.fields import ImageRenditionField
 from django.conf import settings
 

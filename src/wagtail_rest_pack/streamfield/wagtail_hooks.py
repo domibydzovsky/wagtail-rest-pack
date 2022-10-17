@@ -1,4 +1,4 @@
-from wagtail.core import hooks
+from wagtail import hooks
 from .handlers import ThumbnailedEmbedHandler
 
 @hooks.register('register_rich_text_features')

@@ -2,7 +2,7 @@ from django.template.loader import render_to_string
 
 from wagtail.embeds import embeds
 from wagtail.embeds.exceptions import EmbedException
-from wagtail.core.rich_text import EmbedHandler
+from wagtail.rich_text import EmbedHandler
 from wagtail.embeds import format
 from wagtail.embeds.embeds import get_embed
 from wagtail.embeds.models import Embed

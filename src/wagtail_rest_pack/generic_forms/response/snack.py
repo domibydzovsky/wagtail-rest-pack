@@ -1,5 +1,5 @@
 from .response import FormResponse
-from wagtail.core import blocks
+from wagtail import blocks
 
 
 class ShowSnackResponse(FormResponse):

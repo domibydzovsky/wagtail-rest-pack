@@ -1,5 +1,5 @@
 from django.utils.translation import gettext_lazy as _
-from wagtail.core.fields import StreamField
+from wagtail.fields import StreamField
 from wagtail.snippets.models import register_snippet
 from django.conf import settings
 from django.db import models
@@ -15,7 +15,7 @@ choices = getattr(settings, "REST_PACK", {}).get('custom_menu', {'names': defaul
 class CustomMenu(models.Model):
 
     name = models.CharField(max_length=50, choices=choices, primary_key=True)
-    stream = StreamField(block_types=[
+    stream = StreamField(use_json_field=True, block_types=[
         ContainersSerializer.block_definition([
             LinkBlockSerializer.block_definition(nested=True),
             LinkCategorySerializer.block_definition([
@@ -35,4 +35,4 @@ class CustomMenu(models.Model):
 
     class Meta:
         verbose_name = _('Menu')
-        verbose_name_plural = _('Menus')
+        verbose_name_plural = _('Menu')

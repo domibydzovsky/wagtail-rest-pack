@@ -1,5 +1,5 @@
 from rest_framework import generics
-from wagtail.core.models import Page
+from wagtail.models import Page
 from wagtail.search.utils import parse_query_string
 from django.http import HttpResponseNotFound, HttpResponseBadRequest, HttpResponse
 import json

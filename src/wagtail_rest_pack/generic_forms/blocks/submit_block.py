@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from wagtail.core import blocks
+from wagtail import blocks
 from wagtail_rest_pack.generic_forms.actions.send_email import SendEmailAction
 from wagtail_rest_pack.generic_forms.response.snack import ShowSnackResponse
 from django.core.exceptions import ValidationError
