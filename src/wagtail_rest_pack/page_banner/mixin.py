@@ -1,6 +1,5 @@
 from wagtail.api import APIField
 from django.db import models
-from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.images import get_image_model_string
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.images.api.fields import ImageRenditionField
@@ -19,7 +18,7 @@ class PageBannerMixin(models.Model):
             children=[
                 FieldPanel('banner_title'),
                 FieldPanel('banner_subtitle'),
-                ImageChooserPanel('banner_image'),
+                FieldPanel('banner_image'),
             ]
         ),
     ]
