@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme: Theme) => {
             backgroundColor: theme.palette.primary.light,
             boxShadow: theme.shadows[5],
             color: theme.palette.primary.contrastText,
-            "& h2, h3": {
+            "& h2, h3, p, hr": {
                 color: "white !important",
             },
             "& blockquote":{
@@ -48,17 +48,27 @@ const useStyles = makeStyles((theme: Theme) => {
         primarydark: {
             backgroundColor: theme.palette.primary.dark,
             boxShadow: theme.shadows[5],
-            color: theme.palette.primary.contrastText
+            color: theme.palette.primary.contrastText,
+            "& h2, h3, p, hr": {
+                color: "white !important",
+            },
         },
         secondarylight: {
             backgroundColor: theme.palette.secondary.light,
             boxShadow: theme.shadows[5],
-            color: theme.palette.secondary.contrastText
+            color: theme.palette.secondary.contrastText,
+            "& h2, h3, p, hr": {
+                color: "white !important",
+            },
+
         },
         secondarydark: {
             backgroundColor: theme.palette.secondary.dark,
             boxShadow: theme.shadows[5],
-            color: theme.palette.secondary.contrastText
+            color: theme.palette.secondary.contrastText,
+            "& h2, h3, p, hr": {
+                color: "white !important",
+            },
         },
         whitelight: {},
         whitedark: {}

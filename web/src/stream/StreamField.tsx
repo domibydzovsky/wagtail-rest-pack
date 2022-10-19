@@ -1,4 +1,4 @@
-import React, { Fragment, Component } from 'react';
+import React, { Component } from 'react';
 import {RichTextConfiguration} from "../basestream/richtext/Richtext";
 import {FormContext} from "../streamform/Form";
 import {FormHandlerFactory} from "../streamform/Handler";
@@ -16,6 +16,7 @@ export interface StreamBlock<V> {
 export interface NestedData {
     containerized: boolean
     formContext?: FormContext
+    rowData?: StreamRow
 }
 
 export type StreamRecursiveFunction = (stream: StreamBlock<any>[], data: NestedData) => JSX.Element
@@ -71,6 +72,7 @@ export interface StreamContext {
     containerized: boolean
     rowData: StreamRow | undefined
     formContext?: FormContext
+    popRowData?: (props: {index: number}) => StreamRow
 }
 
 export interface StreamProps {
@@ -103,11 +105,17 @@ export function StreamField(props: StreamProps) {
             }
             context.formContext = data.formContext
         }
+        if (data.rowData) {
+            context.rowData = data.rowData;
+        }
         return <StreamField stream={nested} context={context} config={props.config}/>
     }
     return <React.Fragment>
         {props.stream.map((block, index) => {
             let rowContext = {...props.context}
+            if (!rowContext.popRowData) {
+                rowContext.popRowData = popRowData;
+            }
             if (!rowContext.rowData) {
                 rowContext.rowData = popRowData({index})
             }

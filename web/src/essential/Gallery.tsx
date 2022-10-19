@@ -31,6 +31,7 @@ export function Gallery(props: GalleryProps) {
     const [opened, setOpened] = React.useState(false)
     const [index, setIndex] = React.useState(0)
     const classes = useStyles()
+
     let image = props.images[index].image;
     let previous = index > 0 ? props.images[index-1].image : undefined
     let following = props.images[index+1] ? props.images[index+1].image : undefined
@@ -88,13 +89,13 @@ const useStyles = makeStyles((theme: Theme) => {
             textAlign: "center",
             verticalAlign: "center",
             cursor: "pointer",
-            overflow: "hidden"
+            overflow: "hidden",
+            minWidth: 200
         },
         img: {
             boxShadow: theme.shadows[3],
             verticalAlign: "center",
-            minWidth: 300,
-            minHeight: 200,
+            minWidth: 200,
         }
     }
 })

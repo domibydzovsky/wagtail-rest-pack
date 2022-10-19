@@ -57,11 +57,11 @@ export function PageListBlock(props: StreamBlockProps<Props>) {
     const result = <React.Fragment>
         {data.variant === "simple" && <PageList openPage={props.config.actions.openPage} tagProps={props.config.tagProps} children={children || []}/>}
         {data.variant === "amazing" && <AmazingPageGrid loading={children === undefined} config={props.config} children={children || []} />}
-        {data.variant === "nested" && <NestedPagesView loading={children === undefined} config={props.config} recursive={props.recursive} children={(children || []) as ExtraPageChild[]} />}
+        {data.variant === "nested" && <NestedPagesView context={props.context} loading={children === undefined} config={props.config} recursive={props.recursive} children={(children || []) as ExtraPageChild[]} />}
         { hasNext && <LoadNextButton loading={loading} onClick={loadNext} />}
     </React.Fragment>
     const Container = props.config.largeContainer
-    if (!props.context.containerized) {
+    if (!props.context.containerized && data.variant !== "nested") {
         return <Container>
             {result}
         </Container>

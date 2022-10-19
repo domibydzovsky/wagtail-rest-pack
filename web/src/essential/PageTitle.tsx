@@ -9,11 +9,16 @@ export interface Props {
   showSubtitle?: boolean
   last_published_at?: string | number
   variant: "h1" | "h2"
+  bottomBorder?: boolean
 }
 
 export function PageTitle(props: Props) {
   const classes = useStyles()
-  return <div className={classes.root}>
+  let clazz = classes.root;
+  if (props.bottomBorder != false) {
+      clazz += " " + classes.bottomBorder;
+  }
+  return <div className={clazz}>
     {props.showSubtitle && props.subTitle && <React.Fragment>
       {props.variant === "h1" && <h2 className={classes.subtitle}>{props.subTitle}</h2>}
       {props.variant === "h2" && <h3 className={classes.subtitle}>{props.subTitle}</h3>}
@@ -32,11 +37,13 @@ export function PageTitle(props: Props) {
 
 const useStyles = makeStyles((theme: Theme) => {
   return {
+    bottomBorder: {
+      borderBottom: "1px solid " + theme.palette.divider,
+    },
     root: {
       width: "100%",
       float: "left",
       paddingBottom: theme.spacing(2),
-      borderBottom: "1px solid " + theme.palette.divider,
     },
     subtitle: {
       margin: 0,
