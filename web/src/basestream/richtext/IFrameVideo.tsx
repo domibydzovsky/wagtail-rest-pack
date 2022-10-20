@@ -66,7 +66,7 @@ export function IFrameVideo(props: IFrameVideoProps) {
             <div ref={props.target} className={classes.root}>
                 <Tooltip title={title} >
                     <div onClick={() => {setOpened(true)}} className={classes.videoThumbnail}>
-                        <LazyImage width={width} height={height} src={thumbnailUrl} alt={title}/>
+                        <LazyImage width={width} height={"auto"} src={thumbnailUrl} alt={title}/>
                         <div className={classes.thumbnailInner}>Zobrazit video <PlayCircleFilledIcon color="primary"/></div>
                     </div>
                 </Tooltip>

@@ -18,7 +18,6 @@ declare type Combinations =
     | "whitedark"
 
 export function ThemeWrapper(props: Props) {
-  // todo add better colors for nested elements
     const classes = useStyles()
     const row = props.context.rowData
     const className = row?.color + row!.variant as Combinations
@@ -41,6 +40,13 @@ const useStyles = makeStyles((theme: Theme) => {
             "& h2, h3, p, hr": {
                 color: "white !important",
             },
+            "& h2::first-letter, h3::first-letter": {
+                fontSize: "1.3em",
+                color: theme.palette.secondary.light,
+            },
+            "& a": {
+                color: theme.palette.secondary.light,
+            },
             "& blockquote":{
                 display: "none"
             }
@@ -52,6 +58,13 @@ const useStyles = makeStyles((theme: Theme) => {
             "& h2, h3, p, hr": {
                 color: "white !important",
             },
+            "& a": {
+                color: theme.palette.secondary.light,
+            },
+            "& h2::first-letter, h3::first-letter": {
+                fontSize: "1.3em",
+                color: theme.palette.secondary.light,
+            },
         },
         secondarylight: {
             backgroundColor: theme.palette.secondary.light,
@@ -60,7 +73,13 @@ const useStyles = makeStyles((theme: Theme) => {
             "& h2, h3, p, hr": {
                 color: "white !important",
             },
-
+            "& a": {
+                color: theme.palette.primary.light,
+            },
+            "& h2::first-letter, h3::first-letter": {
+                fontSize: "1.3em",
+                color: theme.palette.primary.light,
+            },
         },
         secondarydark: {
             backgroundColor: theme.palette.secondary.dark,
@@ -69,8 +88,31 @@ const useStyles = makeStyles((theme: Theme) => {
             "& h2, h3, p, hr": {
                 color: "white !important",
             },
+            "& a": {
+                color: theme.palette.primary.light,
+            },
+            "& h2::first-letter, h3::first-letter": {
+                color: theme.palette.primary.light,
+                fontSize: "1.3em",
+            },
         },
-        whitelight: {},
-        whitedark: {}
+        whitelight: {
+            "& h2, h3": {
+                color: "black !important",
+            },
+            "& h2::first-letter, h3::first-letter": {
+                color: theme.palette.primary.light,
+                fontSize: "1.3em",
+            },
+        },
+        whitedark: {
+            "& h2, h3": {
+                color: "black !important",
+            },
+            "& h2::first-letter, h3::first-letter": {
+                color: theme.palette.primary.light,
+                fontSize: "1.3em",
+            },
+        }
     }
 })
