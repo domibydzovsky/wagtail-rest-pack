@@ -12,6 +12,7 @@ page_list_variants = [
     ('simple', _('Simple')),
     ('amazing', _('Top, Top Three and simple')),
     ('nested', _('Directly draw all pages inside')),
+    ('children', _('List all children of a page')),
 ]
 
 

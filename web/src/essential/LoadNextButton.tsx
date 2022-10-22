@@ -11,7 +11,7 @@ export interface Props {
 
 export function LoadNextButton(props: Props) {
     const classes = useStyles()
-    const text = props.loading ? (props.loadingText || "Loading..") : (props.loadNextText || "Load next")
+    const text = props.loading ? (props.loadingText || "Loading..") : (props.loadNextText || "Načíst další")
 
     return <div className={classes.root}>
         {props.loading && <CircularProgress className={classes.item}/>}
