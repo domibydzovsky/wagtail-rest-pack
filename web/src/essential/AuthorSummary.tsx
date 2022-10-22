@@ -35,7 +35,7 @@ export function AuthorSummary(props: Props) {
             <Grid item className={classes.avatar}>
                 <Avatar alt={name} src={props.author?.profile?.avatar || ""} className={classes.large}/>
             </Grid>
-            <Grid item justifyContent={"center"} >
+            <Grid item xs md justifyContent={"center"} >
                 <Link className={classes.name} onClick={onClick}>{name}</Link>
                 <span className={classes.desc} >{props.author.description}</span>
             </Grid>
@@ -48,7 +48,6 @@ export function AuthorSummary(props: Props) {
 const useStyles = makeStyles((theme: Theme) => {
     return {
         root: {
-            padding: theme.spacing(1),
             borderBottom: "1px solid " + theme.palette.divider,
         },
         large: {

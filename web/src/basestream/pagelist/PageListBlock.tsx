@@ -5,8 +5,10 @@ import {PageList} from "../../children/PageList";
 import {AmazingPageGrid} from "../../children/AmazingPageGrid";
 import {LoadNextButton} from "../../essential/LoadNextButton";
 import {ExtraPageChild, NestedPagesView} from "../../essential/NestedPagesView";
+import {HideOnPrint} from "../../essential/HideOnPrint";
+import {PageChildren} from "../../children/PageChildren";
 
-export type PageListVariant = "simple" | "amazing" | "nested"
+export type PageListVariant = "simple" | "amazing" | "nested" | "children"
 
 export interface Props {
     variant: PageListVariant
@@ -58,6 +60,16 @@ export function PageListBlock(props: StreamBlockProps<Props>) {
         {data.variant === "simple" && <PageList openPage={props.config.actions.openPage} tagProps={props.config.tagProps} children={children || []}/>}
         {data.variant === "amazing" && <AmazingPageGrid loading={children === undefined} config={props.config} children={children || []} />}
         {data.variant === "nested" && <NestedPagesView context={props.context} loading={children === undefined} config={props.config} recursive={props.recursive} children={(children || []) as ExtraPageChild[]} />}
+        {data.variant === "children" && <React.Fragment>
+            <HideOnPrint>
+                <PageChildren tagProps={props.config.tagProps}
+                              container={props.config.largeContainer}
+                              openPage={props.config.actions.openPage}
+                              title={"Podřazené stránky"}
+                              loading={props.data ? props.data.childrenLoading : false}
+                              children={props.data ? props.data.children : []}/>
+            </HideOnPrint>
+        </React.Fragment>}
         { hasNext && <LoadNextButton loading={loading} onClick={loadNext} />}
     </React.Fragment>
     const Container = props.config.largeContainer

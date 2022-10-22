@@ -1,6 +1,5 @@
 import React from 'react'
 import {PageChild} from "./childrenData";
-import {Container} from "@material-ui/core";
 import {TagProps} from "../chip/Chip";
 import {HideOnPrint} from "../essential/HideOnPrint";
 import {makeStyles, Theme} from "@material-ui/core/styles";
@@ -12,7 +11,7 @@ export interface Props {
     loading: boolean
     tagProps: TagProps
     title: string,
-    containerMaxWidth: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | false;
+    container: React.ComponentType<{ className?: string }>;
     openPage: PageTransition
 }
 
@@ -22,9 +21,10 @@ export function PageChildren(props: Props) {
     if (props.children.length === 0) {
         return null
     }
+    const Container = props.container;
     // todo translate
     return <HideOnPrint>
-        <Container maxWidth={props.containerMaxWidth} className={classes.container}>
+        <Container className={classes.container}>
             <h4>{props.title} (celkem {props.children.length}):</h4>
             <PageList openPage={props.openPage} children={props.children} tagProps={props.tagProps}  />
         </Container>

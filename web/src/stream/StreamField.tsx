@@ -22,6 +22,7 @@ export interface NestedData {
 export type StreamRecursiveFunction = (stream: StreamBlock<any>[], data: NestedData) => JSX.Element
 
 export interface StreamBlockProps<V> {
+    data?: SpecificData
     config: StreamFieldConfig
     context: StreamContext
     value: V
@@ -75,7 +76,13 @@ export interface StreamContext {
     popRowData?: (props: {index: number}) => StreamRow
 }
 
+export interface SpecificData {
+    children: PageChild[]
+    childrenLoading: boolean
+}
+
 export interface StreamProps {
+    data?: SpecificData
     stream: StreamBlock<any>[]
     config: StreamFieldConfig
     context: StreamContext
@@ -124,6 +131,7 @@ export function StreamField(props: StreamProps) {
                 return <div><b>{block.type}</b> is not registed.</div>
             }
             return <Component config={props.config}
+                              data={props.data}
                               recursive={recursive}
                               key={block.id}
                               context={rowContext}
