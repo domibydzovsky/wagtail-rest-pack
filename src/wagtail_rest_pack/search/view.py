@@ -9,7 +9,9 @@ from wagtail_rest_pack.page_banner.serializers import BanneredChildrenSerializer
 from wagtail.images import get_image_model
 import time
 
+from wagtail_rest_pack.search.serializers import DocumentSerializer
 from wagtail_rest_pack.streamfield.image import GalleryImageSerializer
+from wagtail.documents import get_document_model
 
 
 class SearchView(generics.RetrieveAPIView):
@@ -21,6 +23,8 @@ class SearchView(generics.RetrieveAPIView):
 
     def get_image_queryset(self):
         return get_image_model().objects.all()
+    def get_document_queryset(self):
+        return get_document_model().objects.all()
 
     def measure(self, t0):
         return round(time.time() - t0, 3)
@@ -51,9 +55,10 @@ class SearchView(generics.RetrieveAPIView):
                 'time': self.measure(t0)
             }
         if type == 'documents':
-            documents = []
+            documents = get_document_model().objects.all().search(query)
+            documents = self.paginate_queryset(documents)
             result = {
-                'documents': documents,
+                'documents': DocumentSerializer(many = True).to_representation(documents),
                 'time': self.measure(t0)
             }
         if type == 'tags':

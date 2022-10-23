@@ -29,8 +29,12 @@ class ChildPageBannerSerializer(ModelSerializer):
 
     def create_extra(self, instance):
         ret = {}
-        if 'stream' in self.child_extra:
-            ret['stream'] = SettingsStreamFieldSerializer().to_representation(instance.stream)
+        for extra in self.child_extra:
+            if extra == 'stream':
+                ret['stream'] = SettingsStreamFieldSerializer().to_representation(instance.stream)
+            else:
+                if hasattr(instance, extra):
+                    ret[extra] = getattr(instance, extra)
         return ret
 
 class BanneredChildrenSerializer(Field):
@@ -39,6 +43,7 @@ class BanneredChildrenSerializer(Field):
         request = self.context['request']
         order = request.query_params.get('order', '-last_published_at')
         child_extra = request.query_params.get('child_extra', '').split(',')
+        child_extra = [child for child in child_extra if child != ""]
         qs = value
         if hasattr(value, 'specific'):
             qs = qs.specific()

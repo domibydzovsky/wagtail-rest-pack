@@ -13,6 +13,7 @@ export interface Props {
     title: string,
     container: React.ComponentType<{ className?: string }>;
     openPage: PageTransition
+    renderExtra: (props: {key: string, value: any}) => any
 }
 
 export function PageChildren(props: Props) {
@@ -26,7 +27,10 @@ export function PageChildren(props: Props) {
     return <HideOnPrint>
         <Container className={classes.container}>
             <h4>{props.title} (celkem {props.children.length}):</h4>
-            <PageList openPage={props.openPage} children={props.children} tagProps={props.tagProps}  />
+            <PageList renderExtra={props.renderExtra}
+                      openPage={props.openPage}
+                      children={props.children}
+                      tagProps={props.tagProps}  />
         </Container>
     </HideOnPrint>
 }

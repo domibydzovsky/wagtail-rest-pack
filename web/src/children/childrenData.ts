@@ -15,6 +15,7 @@ export interface PageChild {
             "alt": string
         }
     }
+    extra?: object
 }
 
 export interface RelationPage {

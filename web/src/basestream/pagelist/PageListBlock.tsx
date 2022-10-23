@@ -1,5 +1,5 @@
 import React, { Fragment, Component } from 'react';
-import {Pagination, StreamBlockProps} from "../../stream/StreamField";
+import {Pagination, StreamBlockProps, StreamFieldSerializer} from "../../stream/StreamField";
 import {PageChild} from "../../children/childrenData";
 import {PageList} from "../../children/PageList";
 import {AmazingPageGrid} from "../../children/AmazingPageGrid";
@@ -55,9 +55,19 @@ export function PageListBlock(props: StreamBlockProps<Props>) {
             }
         })
     }, [data.children_of, pagination])
+    const renderExtra: (props: {key: string, value: any}) => any = (extraProps) => {
+        const serializerName = 'extra-' + extraProps.key;
+        const ExtraSerializer: StreamFieldSerializer | undefined = props.config.serializers.get(serializerName);
+        if (!ExtraSerializer) {
+            return null;
+        }
+        const value: any = {};
+        value[extraProps.key] = extraProps.value;
+        return <ExtraSerializer {...props} value={value} />
+    }
 
     const result = <React.Fragment>
-        {data.variant === "simple" && <PageList openPage={props.config.actions.openPage} tagProps={props.config.tagProps} children={children || []}/>}
+        {data.variant === "simple" && <PageList renderExtra={renderExtra} openPage={props.config.actions.openPage} tagProps={props.config.tagProps} children={children || []}/>}
         {data.variant === "amazing" && <AmazingPageGrid loading={children === undefined} config={props.config} children={children || []} />}
         {data.variant === "nested" && <NestedPagesView context={props.context} loading={children === undefined} config={props.config} recursive={props.recursive} children={(children || []) as ExtraPageChild[]} />}
         {data.variant === "children" && <React.Fragment>
@@ -65,6 +75,7 @@ export function PageListBlock(props: StreamBlockProps<Props>) {
                 <PageChildren tagProps={props.config.tagProps}
                               container={props.config.largeContainer}
                               openPage={props.config.actions.openPage}
+                              renderExtra={renderExtra}
                               title={"Podřazené stránky"}
                               loading={props.data ? props.data.childrenLoading : false}
                               children={props.data ? props.data.children : []}/>

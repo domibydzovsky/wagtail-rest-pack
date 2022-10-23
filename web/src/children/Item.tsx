@@ -17,7 +17,8 @@ import {PageTransition} from "../model/data";
 export interface Props {
   self: PageChild,
   tagProps: TagProps,
-  openPage: PageTransition
+  openPage: PageTransition,
+  renderExtra: (props: {key: string, value: any}) => any
 }
 
 export function Item(props: Props) {
@@ -56,6 +57,12 @@ export function Item(props: Props) {
                 </Typography>
             </CardContent>
             <CardActions disableSpacing>
+                {data.extra && Object.entries(data.extra).map(value => {
+                    return props.renderExtra({
+                        key: value[0],
+                        value: value[1]
+                    })
+                })}
                 <Chips names={data.keywords ? data.keywords : []}
                        tagProps={props.tagProps}/>
                 {/*<IconButton aria-label="add to favorites">*/}

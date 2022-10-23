@@ -21,8 +21,8 @@ export function RecaptchaAddon(props: FormAddonProps) {
         if (enabled(props)) {
             context.setFieldValidity("_recaptcha_field", token !== undefined)
             context.register("recaptchaddon", {
-                collect: _ => config.update,
-                clear: ()=>setToken(undefined)
+                collect: dto => config.update(token || "", dto),
+                clear: () => setToken(undefined)
             })
         }
     }, [context, token])
