@@ -73,7 +73,7 @@ const useStyles = makeStyles((theme: Theme) => {
         },
         text: {
           textAlign: "justify",
-          textIndent: "none",
+          textIndent: 0,
         },
         date: {
             fontWeight: "bold",

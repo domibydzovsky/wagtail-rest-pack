@@ -2,9 +2,10 @@ import React from 'react'
 import {makeStyles, Theme, useTheme} from "@material-ui/core/styles";
 import {GalleryImageSize} from "../essential/Gallery";
 import {Carousel as ReactCarousel} from 'react-responsive-carousel'
-import {useMediaQuery} from "@material-ui/core";
+import {CircularProgress, useMediaQuery} from "@material-ui/core";
 import {LazyImage} from "../essential/LazyLoadImage";
 import 'react-responsive-carousel/lib/styles/carousel.css'
+import Skeleton from "@material-ui/lab/Skeleton";
 
 export interface CarouselItem {
     large: GalleryImageSize,
@@ -51,9 +52,9 @@ export function Carousel(props: CarouselItems) {
                             alt={image.alt}/>
                     </div>
                 }) || skeletons.map((it, index) => {
-
-                    return <div key={index}/>
-                    // return <div className={classes.item}><CircularProgress /></div>
+                    // return <Skeleton key={index} className={classes.item} height={350} animation="wave" />
+                    // return <div key={index}/>
+                    return <div className={classes.item}><CircularProgress /></div>
                     // return <Skeleton className={classes.item} height={"calc(100vh - 60px)"} animation="wave" />
                 })
             }
