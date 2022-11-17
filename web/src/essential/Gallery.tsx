@@ -58,9 +58,9 @@ export function Gallery(props: GalleryProps) {
             onMoveNextRequest={() => setIndex(index+1)}
             onMovePrevRequest={() => setIndex(index-1)}
             onCloseRequest={() => setOpened(false)}/>)}
-        {props.name && <Container>
-            <h2>{props.name}</h2>
-        </Container>}
+        {/*{props.name && <Container>*/}
+        {/*    <h2>{props.name}</h2>*/}
+        {/*</Container>}*/}
         <LargeContainer>
             <Grid container alignItems={"center"} justifyContent={"center"}>
                 { props.images.map((image,index) => {
@@ -69,8 +69,6 @@ export function Gallery(props: GalleryProps) {
                                  onClick={() => {setIndex(index); setOpened(true)}}>
                         <LazyImage alt={image.image.title}
                                    className={classes.img}
-                                   width={image.image.small.width}
-                                   height={image.image.small.height}
                                    src={image.image.small.url}/>
                     </Grid>
                 })}

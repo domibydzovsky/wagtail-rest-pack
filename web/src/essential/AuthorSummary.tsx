@@ -24,7 +24,7 @@ export interface Props {
 
 export function AuthorSummary(props: Props) {
     const classes = useStyles()
-    const name = props.author.last_name + " " + props.author.first_name
+    const name = props.author.first_name + " " + props.author.last_name
     const onClick = (e: any) => {
       e.preventDefault()
       props.onClick()

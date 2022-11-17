@@ -18,12 +18,15 @@ export function AmazingPageGrid(props: Props) {
     if (props.children.length >= 2) {
         secondRow = props.children.slice(1, props.children.length)
     }
-    return <div className={classes.root}>
-            <OtherNew loading={props.loading} config={config} page={firstRow}/>
-            { secondRow.map((row, index) => {
-                return <OtherNew key={row?.id || "x"+index} loading={props.loading} config={config} page={row}/>
-            }) }
-    </div>
+    const Container = props.config.container;
+    return <Container>
+        <div className={classes.root}>
+                <OtherNew loading={props.loading} config={config} page={firstRow}/>
+                { secondRow.map((row, index) => {
+                    return <OtherNew key={row?.id || "x"+index} loading={props.loading} config={config} page={row}/>
+                }) }
+        </div>
+    </Container>
 }
 
 const useStyles = makeStyles(theme => {

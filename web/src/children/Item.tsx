@@ -28,61 +28,46 @@ export function Item(props: Props) {
     const openPage = () => props.openPage.openPage({url: data.url, title: data.banner.title});
     return (
         <Card className={classes.root}>
-            <CardHeader
-                avatar={
-                    <Avatar aria-label="recipe" className={classes.avatar}>
-                        R
-                    {/* todo add avatar, so add owner parsing to BannerSerializer? */}
-                    </Avatar>
-                }
-                action={
-                    <IconButton aria-label="goto"
-                                onClick={openPage}
-                                title={data.url}>
-                        <OpenInBrowserIcon />
-                    </IconButton>
-                }
-                title={data.banner.title}
-                subheader={toDateStr(data.last_published_at)}
-            />
+            {/*<CardHeader*/}
+            {/*    title={data.banner.title}*/}
+            {/*    className={classes.title}*/}
+            {/*/>*/}
             {data.banner.image && <CardMedia
                 onClick={openPage}
                 className={classes.media}
                 image={data.banner.image.url}
                 title={data.banner.title}
             />}
-            <CardContent>
+            <CardContent className={classes.content}>
+                <Typography variant="h2" className={classes.title} onClick={openPage}>
+                    {data.banner.title}
+                </Typography>
                 <Typography variant="body2" color="textSecondary" component="p">
                     {data.banner.subtitle}
                 </Typography>
             </CardContent>
-            <CardActions disableSpacing>
-                {data.extra && Object.entries(data.extra).map(value => {
-                    return props.renderExtra({
-                        key: value[0],
-                        value: value[1]
-                    })
-                })}
-                <Chips names={data.keywords ? data.keywords : []}
-                       tagProps={props.tagProps}/>
-                {/*<IconButton aria-label="add to favorites">*/}
-                {/*    <FavoriteIcon />*/}
-                {/*</IconButton>*/}
-                {/*<IconButton aria-label="share">*/}
-                {/*    <ShareIcon />*/}
-                {/*</IconButton>*/}
-                {/*<IconButton*/}
-                {/*    className={clsx(classes.expand, {*/}
-                {/*        [classes.expandOpen]: expanded,*/}
-                {/*    })}*/}
-                {/*    onClick={handleExpandClick}*/}
-                {/*    aria-expanded={expanded}*/}
-                {/*    aria-label="show more"*/}
-                {/*>*/}
-                {/*    <ExpandMoreIcon />*/}
-                {/*</IconButton>*/}
+            { ((data.extra && Object.entries(data.extra).length > 0) || (data.keywords && data.keywords.length > 0)) && <CardActions disableSpacing className={classes.actions}>
+                <div>
+                    {data.extra && Object.entries(data.extra).map(value => {
+                        return props.renderExtra({
+                            key: value[0],
+                            value: value[1]
+                        })
+                    })}
+                    {data.keywords && <Chips names={data.keywords} tagProps={props.tagProps}/>}
+                </div>
+            </CardActions>}
+            <CardActions disableSpacing className={classes.actions}>
+                <IconButton aria-label="goto"
+                            onClick={openPage}
+                            size="small"
+                            style={{marginLeft: 'auto'}}
+                            color="primary"
+                            title={data.url}>
+                    <OpenInBrowserIcon />
+                    Otevřít
+                </IconButton>
             </CardActions>
-
         </Card>
     );
 }
@@ -92,10 +77,25 @@ const useStyles = makeStyles((theme: Theme) => ({
         margin: 10,
         boxShadow: theme.shadows[5],
     },
+    title: {
+        fontSize: "1.5rem",
+        "&:hover": {
+            cursor: "pointer"
+        }
+    },
+    content: {
+        paddingBottom: 0
+    },
+    actions: {
+
+    },
     media: {
         cursor: "pointer",
         height: 0,
         paddingTop: '56.25%', // 16:9
+        "&:hover": {
+            opacity: 0.9
+        }
     },
     expand: {
         transform: 'rotate(0deg)',

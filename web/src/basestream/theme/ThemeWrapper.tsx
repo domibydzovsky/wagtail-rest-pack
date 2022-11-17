@@ -100,6 +100,9 @@ const useStyles = makeStyles((theme: Theme) => {
             "& h2, h3": {
                 color: "black !important",
             },
+            "& a": {
+                color: theme.palette.primary.light,
+            },
             "& h2::first-letter, h3::first-letter": {
                 color: theme.palette.primary.light,
                 fontSize: "1.3em",
@@ -108,6 +111,9 @@ const useStyles = makeStyles((theme: Theme) => {
         whitedark: {
             "& h2, h3": {
                 color: "black !important",
+            },
+            "& a": {
+                color: theme.palette.primary.light,
             },
             "& h2::first-letter, h3::first-letter": {
                 color: theme.palette.primary.light,

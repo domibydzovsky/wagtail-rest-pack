@@ -24,7 +24,7 @@ export function Image(props: {node: HTMLElement}) {
             }
         })
     }
-    return <LazyImage className={className} src={src} width={width} height={height} alt={alt} />
+    return <LazyImage zoom={true} className={className} src={src} width={width} height={height} alt={alt} />
 }
 
 const useStyles = makeStyles(() => {

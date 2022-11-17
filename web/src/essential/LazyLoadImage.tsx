@@ -5,11 +5,12 @@ import { generateCustomPlaceholderURL } from 'react-placeholder-image';
 import {makeStyles} from "@material-ui/core/styles";
 
 export interface Props {
-    width: number | string
-    height: number | string
+    width?: number | string
+    height?: number | string
     src: string
     alt: string
     className?: string
+    zoom?: boolean
     onClick?: () => void
 }
 
@@ -23,6 +24,9 @@ export function LazyImage(props: Props) {
     }
     const classes = useStyles();
     let clazz = props.className + " lazyload";
+    if (props.zoom === true) {
+        clazz += " " + classes.zoom;
+    }
     if (props.onClick) {
         clazz += " " + classes.clickable;
     }
@@ -39,10 +43,19 @@ export function LazyImage(props: Props) {
                 data-src={props.src} />
 }
 
-const useStyles = makeStyles(() => {
+const useStyles = makeStyles((theme) => {
     return {
+        zoom: {
+            transition: "transform .2s",
+            "&:hover" : {
+                transform: "scale(1.03)"
+            }
+        },
         clickable: {
-            cursor: "pointer"
+            cursor: "pointer",
+            "&:hover": {
+                opacity: 0.8
+            }
         }
     }
 });
