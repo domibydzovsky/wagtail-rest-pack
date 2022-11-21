@@ -12,6 +12,7 @@ export interface Props {
     className?: string
     zoom?: boolean
     onClick?: () => void
+    onLoad?: () => void
 }
 
 export function LazyImage(props: Props) {
@@ -38,6 +39,11 @@ export function LazyImage(props: Props) {
                     if (props.width && Number(props.width) && props.height && Number(props.height)) {
                         const target = e.target as HTMLImageElement
                         target.src = generateCustomPlaceholderURL(Number(props.width), Number(props.height))
+                    }
+                }}
+                onLoad={() => {
+                    if (props.onLoad) {
+                        props.onLoad();
                     }
                 }}
                 data-src={props.src} />

@@ -1,5 +1,6 @@
 import {FunctionComponent} from "react";
 import {NavItemProps} from "react-minimal-side-navigation/lib/side-nav";
+import {PageTransition} from "../../dist";
 
 export interface MenuItem<T> {
     type: string,

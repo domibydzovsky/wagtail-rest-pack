@@ -28,7 +28,7 @@ export function StreamContainer(props: StreamBlockProps<ContainerProps>) {
 const useStyles = makeStyles((theme) => {
     return {
         root: {
-            padding: theme.spacing(2)
+            padding: theme.spacing(1)
         },
     }
 });

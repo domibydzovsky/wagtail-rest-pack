@@ -6,6 +6,7 @@ import {CircularProgress, useMediaQuery} from "@material-ui/core";
 import {LazyImage} from "../essential/LazyLoadImage";
 import 'react-responsive-carousel/lib/styles/carousel.css'
 import Skeleton from "@material-ui/lab/Skeleton";
+import clsx from "clsx";
 
 export interface CarouselItem {
     large: GalleryImageSize,
@@ -26,6 +27,15 @@ export function Carousel(props: CarouselItems) {
     const theme = useTheme();
     const smallerImage = useMediaQuery(theme.breakpoints.down('sm'));
     let showControl = props.sliders && props.sliders.length > 1;
+    const [loaded, setLoaded] = React.useState(false)
+    const [ lastSliders, setLastSliders ] = React.useState([] as CarouselItem[])
+    React.useEffect(() => {
+        if (props.sliders && props.sliders.length > 0) {
+            setLastSliders(props.sliders)
+        }
+        setLoaded(false)
+    }, [props.sliders])
+    const finalSliders = (props.sliders && props.sliders.length > 0) ? props.sliders : lastSliders
     let skeletons = [{}]
     return <div className={classes.root}>
         <ReactCarousel
@@ -39,23 +49,19 @@ export function Carousel(props: CarouselItems) {
             className={classes.carousel}
             showThumbs={false}>
             {
-                props.sliders && props.sliders.map((slider) => {
+                finalSliders && finalSliders.map((slider) => {
                     let image = smallerImage ? slider.small : slider.large
-                    return <div className={classes.item} key={image.url}>
+                    return <div className={clsx(classes.item, {[classes.loading]: !loaded})} key={image.url}>
                         {/*<div className={classes.textWrapper}>*/}
                         {/*    <Typography className={classes.text}>{slider.text}</Typography>*/}
                         {/*</div>*/}
                         <LazyImage
+                            onLoad={() => setLoaded(true)}
                             width={"100%"}
                             height={"auto"}
                             src={image.url}
-                            alt={image.alt}/>
+                            alt={""}/>
                     </div>
-                }) || skeletons.map((it, index) => {
-                    // return <Skeleton key={index} className={classes.item} height={350} animation="wave" />
-                    // return <div key={index}/>
-                    return <div className={classes.item}><CircularProgress /></div>
-                    // return <Skeleton className={classes.item} height={"calc(100vh - 60px)"} animation="wave" />
                 })
             }
         </ReactCarousel>
@@ -67,18 +73,22 @@ const useStyles = makeStyles((theme: Theme) => {
         root: {
             boxShadow: theme.shadows[2]
         },
+        loading: {
+            maxHeight: "0px !important"
+        },
         carousel: {
             position: "relative",
         },
         item: {
+            transition: "max-height 0.5s ease-out",
             position: "relative",
             padding: 0,
             margin: 0,
             [theme.breakpoints.up("md")]: {
-                height: 350,
+                maxHeight: 350
             },
             [theme.breakpoints.down("sm")]: {
-                height: 100,
+                maxHeight: 100
             },
         },
         text: {

@@ -1,6 +1,8 @@
 import React from 'react'
 import {makeStyles} from "@material-ui/core/styles";
 import {LazyImage} from "../../essential/LazyLoadImage";
+import Typography from "@material-ui/core/Typography";
+import clsx from "clsx";
 
 
 
@@ -12,11 +14,24 @@ export function Image(props: {node: HTMLElement}) {
     let alt = props.node.getAttribute("alt") as string
     let classes = useStyles()
     let className = ""
+    let center = false;
+    let altAsCaption = false;
+    let wrapperClazz = "";
     if (clazz) {
         clazz.split(" ").forEach((it) => {
             if (it === "full-width") {
                 width = "100%"
                 height = "auto"
+            }
+            if (it === "small" || it === "medium") {
+                center = true
+            }
+            if (it === "caption") {
+                center = true
+                altAsCaption = true
+            }
+            if (it === "") {
+                wrapperClazz += classes.left
             }
             if (classes.hasOwnProperty(it)) {
                 // @ts-ignore
@@ -24,7 +39,15 @@ export function Image(props: {node: HTMLElement}) {
             }
         })
     }
-    return <LazyImage zoom={true} className={className} src={src} width={width} height={height} alt={alt} />
+
+    return <React.Fragment>
+        <div className={clsx(wrapperClazz,{[classes.center]: center})}>
+            <LazyImage zoom={true} className={className} src={src} width={width} height={height} alt={alt} />
+            { altAsCaption && <div className={classes.caption}>
+                <Typography variant="caption">{alt}</Typography>
+            </div>}
+        </div>
+    </React.Fragment>
 }
 
 const useStyles = makeStyles(() => {
@@ -35,11 +58,28 @@ const useStyles = makeStyles(() => {
         "full-width": {
 
         },
+        center: {
+            textAlign: "center"
+        },
+        "small": {
+            maxWidth: "100%",
+            textAlign: "center",
+        },
+        "medium": {
+            maxWidth: "100%",
+            textAlign: "center",
+        },
+        caption: {
+            margin: "auto",
+            textAlign: "center"
+        },
         "right": {
             margin: 10,
+            maxWidth: "100%",
             float: "right"
         },
         "left": {
+            maxWidth: "100%",
             margin: 10,
             float: "left"
         }

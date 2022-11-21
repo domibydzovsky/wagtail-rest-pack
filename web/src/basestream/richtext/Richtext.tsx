@@ -36,6 +36,7 @@ export function RichText(props: {text: string, conf?: RichTextConfiguration}) {
     const classes = useStyles()
     return <div className={classes.root}>
         <Interweave
+            tagName={'div'}
         allowAttributes={configuration.allowAttributes}
         allowElements={configuration.allowElements}
         noHtml={configuration.noHtml}

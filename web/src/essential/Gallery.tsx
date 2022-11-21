@@ -83,17 +83,17 @@ const useStyles = makeStyles((theme: Theme) => {
             zIndex: theme.zIndex.drawer
         },
         item: {
-            padding: 5,
+            padding: theme.spacing(0.3),
             textAlign: "center",
             verticalAlign: "center",
             cursor: "pointer",
             overflow: "hidden",
-            minWidth: 200
+            minWidth: 180
         },
         img: {
             boxShadow: theme.shadows[3],
             verticalAlign: "center",
-            minWidth: 200,
+            width: "100%"
         }
     }
 })
