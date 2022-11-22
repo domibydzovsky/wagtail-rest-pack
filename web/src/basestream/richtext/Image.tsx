@@ -7,13 +7,13 @@ import clsx from "clsx";
 
 
 export function Image(props: {node: HTMLElement}) {
-    let width: number | string = Number(props.node.getAttribute("width"))
-    let height: number | string = Number(props.node.getAttribute("height"))
+    let width: number | undefined | string = Number(props.node.getAttribute("width"))
+    let height: number | undefined | string = Number(props.node.getAttribute("height"))
     let src = props.node.getAttribute("src") as string
     let clazz = props.node.getAttribute("class") as string
     let alt = props.node.getAttribute("alt") as string
     let classes = useStyles()
-    let className = ""
+    let className = classes.image
     let center = false;
     let altAsCaption = false;
     let wrapperClazz = "";
@@ -29,13 +29,15 @@ export function Image(props: {node: HTMLElement}) {
             if (it === "caption") {
                 center = true
                 altAsCaption = true
+                width = undefined
+                height = undefined
             }
             if (it === "") {
                 wrapperClazz += classes.left
             }
             if (classes.hasOwnProperty(it)) {
                 // @ts-ignore
-                className += " " + classes[it]
+                // className += " " + classes[it]
             }
         })
     }
@@ -57,6 +59,9 @@ const useStyles = makeStyles(() => {
         },
         "full-width": {
 
+        },
+        image:{
+            maxWidth: "100%",
         },
         center: {
             textAlign: "center"

@@ -5,8 +5,8 @@ import { generateCustomPlaceholderURL } from 'react-placeholder-image';
 import {makeStyles} from "@material-ui/core/styles";
 
 export interface Props {
-    width?: number | string
-    height?: number | string
+    width?: number | string | undefined
+    height?: number | string | undefined
     src: string
     alt: string
     className?: string

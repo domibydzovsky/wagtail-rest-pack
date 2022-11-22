@@ -3,13 +3,14 @@ import {PageChild} from "./childrenData";
 import {TagProps} from "../chip/Chip";
 import {HideOnPrint} from "../essential/HideOnPrint";
 import {makeStyles, Theme} from "@material-ui/core/styles";
-import {PageList} from "./PageList";
+import {PageList, SortOptions} from "./PageList";
 import {PageTransition} from "../model/data";
 
 export interface Props {
     children: PageChild[]
     loading: boolean
     tagProps: TagProps
+    sort?: SortOptions
     title: string,
     container: React.ComponentType<{ className?: string }>;
     openPage: PageTransition
@@ -28,6 +29,7 @@ export function PageChildren(props: Props) {
         <Container className={classes.container}>
             <h4>{props.title} (celkem {props.children.length}):</h4>
             <PageList renderExtra={props.renderExtra}
+                      sort={props.sort}
                       openPage={props.openPage}
                       children={props.children}
                       tagProps={props.tagProps}  />
