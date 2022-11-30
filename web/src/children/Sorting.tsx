@@ -1,8 +1,8 @@
 import React from 'react'
-import {makeStyles, Theme} from "@material-ui/core/styles";
+import {makeStyles, Theme, useTheme} from "@material-ui/core/styles";
 import {PageChild} from "./childrenData";
 import {SortOptions} from "./PageList";
-import {isWidthDown, Tooltip, withWidth} from "@material-ui/core";
+import {isWidthDown, Tooltip, useMediaQuery, withWidth} from "@material-ui/core";
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import UnfoldMoreIcon from '@material-ui/icons/UnfoldMore';
@@ -55,8 +55,11 @@ export function Sorting(data: SortUse) {
     const defaultFieldName = props.sort.fields.filter((field) => field.isDefault === true)[0].field;
     const [actualField, setActualField] = React.useState(defaultFieldName)
     const [directionUp, setDirectionUp ] = React.useState(false)
-    const isMobileView = false // isWidthDown("sm", width); todo
-
+    const theme = useTheme();
+    const isMobileView = useMediaQuery(theme.breakpoints.down('md'));
+    if (!data.props.sort.enabled) {
+        return null;
+    }
     return  <div className={classes.root}>
         <div className={classes.wrapper}>
             { fields.map((field) => {

@@ -10,7 +10,7 @@ export interface Props {
     children: PageChild[]
     loading: boolean
     tagProps: TagProps
-    sort?: SortOptions
+    sort: SortOptions
     title: string,
     container: React.ComponentType<{ className?: string }>;
     openPage: PageTransition

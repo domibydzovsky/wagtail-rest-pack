@@ -23,16 +23,16 @@ export interface SortOptions {
 }
 
 
-export interface Props {
+export interface PageListProps {
     className?: string
     children: PageChild[]
     tagProps: TagProps
     openPage: PageTransition
     renderExtra: (props: {key: string, value: any}) => any
-    sort?: SortOptions
+    sort: SortOptions
 }
 
-export function PageList(props: Props) {
+export function PageList(props: PageListProps) {
     if (props.children.length === 0) {
         return null
     }

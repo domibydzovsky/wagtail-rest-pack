@@ -7,10 +7,8 @@ import {LoadNextButton} from "../../essential/LoadNextButton";
 import {ExtraPageChild, NestedPagesView} from "../../essential/NestedPagesView";
 import {HideOnPrint} from "../../essential/HideOnPrint";
 import {PageChildren} from "../../children/PageChildren";
-import HearingIcon from '@material-ui/icons/Hearing';
-import AccessTimeIcon from '@material-ui/icons/AccessTime';
 
-export type PageListVariant = "simple" | "amazing" | "nested" | "children"
+export type PageListVariant = "simple" | "amazing" | "nested" | "children" | "sortable"
 
 export interface Props {
     variant: PageListVariant
@@ -68,39 +66,17 @@ export function PageListBlock(props: StreamBlockProps<Props>) {
         return <ExtraSerializer {...props} value={value} />
     }
 
-    const pageDateSortField: SortField = {
-        field: "date",
-        icon: <AccessTimeIcon/>,
-        isDefault: true,
-        nameUp: "Nejnovější",
-        nameDown: "Nejstarší",
-        active: (children: PageChild[]) => true,
-        sort: (a: PageChild, b: PageChild) => {
-            return Date.parse(a.last_published_at) - Date.parse(b.last_published_at);
-        }
-    };
-
-    const hearingSortField: SortField = {
-        field: "hear",
-        icon: <HearingIcon/>,
-        nameUp: "Nejsnažší",
-        nameDown: "Nejnáročnější",
-        active: (children: PageChild[]) => children.every((child) => Boolean(child.extra && child.extra['extra-difficulty'])),
-        sort: (a: PageChild, b: PageChild) => {
-            return (a.extra && b.extra ) ? (Number(a.extra['difficulty']) - Number(b.extra['difficulty'])) : 0;
-        }
-    };
-    const sortOptions : SortOptions = {
-        enabled: true,
-        fields: [
-            hearingSortField, pageDateSortField
-        ]
+    const sortOptions = { ...props.config.sort, enabled: false };
+    let variant = data.variant;
+    if (data.variant === 'sortable') {
+        sortOptions.enabled = true;
+        variant = 'children';
     }
     const result = <React.Fragment>
-        {data.variant === "simple" && <PageList sort={sortOptions} renderExtra={renderExtra} openPage={props.config.actions.openPage} tagProps={props.config.tagProps} children={children || []}/>}
-        {data.variant === "amazing" && <AmazingPageGrid loading={children === undefined} config={props.config} children={children || []} />}
-        {data.variant === "nested" && <NestedPagesView context={props.context} loading={children === undefined} config={props.config} recursive={props.recursive} children={(children || []) as ExtraPageChild[]} />}
-        {data.variant === "children" && <React.Fragment>
+        {variant === "simple" && <PageList sort={sortOptions} renderExtra={renderExtra} openPage={props.config.actions.openPage} tagProps={props.config.tagProps} children={children || []}/>}
+        {variant === "amazing" && <AmazingPageGrid loading={children === undefined} config={props.config} children={children || []} />}
+        {variant === "nested" && <NestedPagesView context={props.context} loading={children === undefined} config={props.config} recursive={props.recursive} children={(children || []) as ExtraPageChild[]} />}
+        {variant === "children" && <React.Fragment>
             <HideOnPrint>
                 <PageChildren tagProps={props.config.tagProps}
                               container={props.config.largeContainer}

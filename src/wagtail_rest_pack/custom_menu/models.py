@@ -7,6 +7,9 @@ from wagtail_rest_pack.custom_menu.serializers import LinkBlockSerializer
 from wagtail_rest_pack.streamfield.containers import ContainersSerializer
 from wagtail_rest_pack.custom_menu.serializers import LinkCategorySerializer
 from wagtail_rest_pack.custom_menu.serializers import ChildrenLinksSerializer
+from wagtail_rest_pack.custom_menu.serializers import FacebookLinkSerializer
+from wagtail_rest_pack.custom_menu.serializers import EmailLinkSerializer
+from wagtail_rest_pack.custom_menu.serializers import ContactFormLinkSerializer
 
 default_names = [('default', 'default')]
 choices = getattr(settings, "REST_PACK", {}).get('custom_menu', {'names': default_names}).get('names', default_names)
@@ -21,7 +24,10 @@ class CustomMenu(models.Model):
             LinkCategorySerializer.block_definition([
                 LinkBlockSerializer.block_definition(nested=True),
                 ChildrenLinksSerializer.block_definition(),
-            ])
+            ]),
+            FacebookLinkSerializer.block_definition(),
+            EmailLinkSerializer.block_definition(),
+            ContactFormLinkSerializer.block_definition(),
         ]),
         LinkBlockSerializer.block_definition(),
         LinkCategorySerializer.block_definition([

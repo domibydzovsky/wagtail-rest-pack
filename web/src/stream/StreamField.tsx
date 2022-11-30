@@ -5,6 +5,7 @@ import {FormHandlerFactory} from "../streamform/Handler";
 import {PageChild} from "../children/childrenData";
 import {TagProps} from "../chip/Chip";
 import {PageTransition} from "../model/data";
+import {SortOptions} from "../children/PageList";
 
 export interface StreamBlock<V> {
     type: string
@@ -61,7 +62,8 @@ export interface StreamFieldConfig {
     formHandlerFactory: FormHandlerFactory,
     components: RequiredComponents,
     actions: StreamActions,
-    tagProps: TagProps
+    tagProps: TagProps,
+    sort: SortOptions,
 }
 
 export interface StreamRow {

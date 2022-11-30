@@ -29,6 +29,67 @@ class LinkCategorySerializer(serializers.Serializer):
         fields = ['name', 'stream', 'icon']
 
 
+class FacebookLinkSerializer(serializers.Serializer):
+    block_name = 'fblink'
+    url = serializers.CharField(max_length=200)
+    text = serializers.CharField(max_length=200)
+
+    @staticmethod
+    def block_definition():
+        local_block_name = FacebookLinkSerializer.block_name
+        return local_block_name, blocks.StructBlock(local_blocks=[
+            ('url', blocks.TextBlock(max_length=200, required=True, help_text=_('Celý odkaz na facebook'))),
+            ('text', blocks.TextBlock(max_length=200, required=True, help_text=_('Text odkazu'))),
+        ])
+
+    class Meta:
+        fields = ['url','text']
+
+class EmailLinkSerializer(serializers.Serializer):
+    block_name = 'emaillink'
+    email = serializers.CharField(max_length=200)
+
+    @staticmethod
+    def block_definition():
+        local_block_name = EmailLinkSerializer.block_name
+        return local_block_name, blocks.StructBlock(local_blocks=[
+            ('email', blocks.TextBlock(max_length=200, required=True, help_text=_('Kontaktní email'))),
+        ])
+
+    class Meta:
+        fields = ['email']
+
+class HeaderSerializer(serializers.Serializer):
+    block_name = 'footerheader'
+    text = serializers.CharField(max_length=200)
+
+    @staticmethod
+    def block_definition():
+        local_block_name = HeaderSerializer.block_name
+        return local_block_name, blocks.StructBlock(local_blocks=[
+            ('text', blocks.TextBlock(max_length=200, required=True, help_text=_('Nadpis části'))),
+        ])
+
+    class Meta:
+        fields = ['text']
+
+class ContactFormLinkSerializer(serializers.Serializer):
+    block_name = 'contactform'
+    url = serializers.CharField(max_length=200)
+    text = serializers.CharField(max_length=200)
+
+    @staticmethod
+    def block_definition():
+        local_block_name = ContactFormLinkSerializer.block_name
+        return local_block_name, blocks.StructBlock(local_blocks=[
+            ('url', blocks.TextBlock(max_length=200, required=True, help_text=_('Relativní cesta na kontaktní formulář, např. /contact-us#form'))),
+            ('text', blocks.TextBlock(max_length=200, required=True, help_text=_('Text odkazu'))),
+        ])
+
+    class Meta:
+        fields = ['url','text']
+
+
 class LinkBlockSerializer(serializers.Serializer):
     block_name = 'linkblock'
 
