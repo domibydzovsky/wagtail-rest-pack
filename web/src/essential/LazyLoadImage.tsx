@@ -3,6 +3,7 @@ import 'lazysizes';
 import 'lazysizes/plugins/parent-fit/ls.parent-fit';
 import { generateCustomPlaceholderURL } from 'react-placeholder-image';
 import {makeStyles} from "@material-ui/core/styles";
+import clsx from "clsx";
 
 export interface Props {
     width?: number | string | undefined
@@ -24,14 +25,10 @@ export function LazyImage(props: Props) {
         opts["height"] = props.height;
     }
     const classes = useStyles();
-    let clazz = props.className + " lazyload";
-    if (props.zoom === true) {
-        clazz += " " + classes.zoom;
-    }
-    if (props.onClick) {
-        clazz += " " + classes.clickable;
-    }
-    return <img className={clazz}
+    return <img className={clsx(classes.print, "lazyload", props.className, {
+        [classes.clickable]:props.onClick,
+        [classes.zoom]: props.zoom,
+    })}
                 alt={props.alt}
                 onClick={() => { props.onClick && props.onClick()}}
                 {...opts}
@@ -61,6 +58,11 @@ const useStyles = makeStyles((theme) => {
             cursor: "pointer",
             "&:hover": {
                 opacity: 0.8
+            }
+        },
+        print: {
+            '@media print' : {
+                maxWidth: "200px !important",
             }
         }
     }

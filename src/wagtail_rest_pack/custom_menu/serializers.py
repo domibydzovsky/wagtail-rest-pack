@@ -62,16 +62,18 @@ class EmailLinkSerializer(serializers.Serializer):
 class HeaderSerializer(serializers.Serializer):
     block_name = 'footerheader'
     text = serializers.CharField(max_length=200)
+    stream = SettingsStreamFieldSerializer()
 
     @staticmethod
-    def block_definition():
+    def block_definition(local_blocks):
         local_block_name = HeaderSerializer.block_name
         return local_block_name, blocks.StructBlock(local_blocks=[
             ('text', blocks.TextBlock(max_length=200, required=True, help_text=_('Nadpis části'))),
+            ('stream', StreamBlock(local_blocks, label=_('Bloky'))),
         ])
 
     class Meta:
-        fields = ['text']
+        fields = ['text', 'stream']
 
 class ContactFormLinkSerializer(serializers.Serializer):
     block_name = 'contactform'

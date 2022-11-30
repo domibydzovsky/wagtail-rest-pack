@@ -25,7 +25,7 @@ export function RecaptchaAddon(props: FormAddonProps) {
                 clear: () => setToken(undefined)
             })
         }
-    }, [context, token])
+    }, [props, context, token])
     if (!enabled(props)) {
         return null
     }

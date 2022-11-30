@@ -37,7 +37,7 @@ export function PageList(props: PageListProps) {
         return null
     }
     const sortingProps: SortingProps = {
-        sort: props.sort || {enabled: false, fields: []},
+        sort: props.sort,
         pages: props.children
     }
     const sorting = useSorting(sortingProps)

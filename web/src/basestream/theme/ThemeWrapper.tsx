@@ -2,6 +2,7 @@ import React from 'react'
 import {makeStyles} from "@material-ui/core/styles";
 import {Theme} from "@material-ui/core/styles";
 import {StreamContext} from "../../stream/StreamField";
+import clsx from "clsx";
 
 
 export interface Props {
@@ -22,7 +23,7 @@ export function ThemeWrapper(props: Props) {
     const row = props.context.rowData
     const className = row?.color + row!.variant as Combinations
     const clazz = classes[className]
-    return <div className={classes.root + " " + clazz}>{props.children}</div>
+    return <div className={clsx(classes.root,clazz, classes.print)}>{props.children}</div>
 }
 
 const useStyles = makeStyles((theme: Theme) => {
@@ -119,6 +120,16 @@ const useStyles = makeStyles((theme: Theme) => {
                 color: theme.palette.primary.light,
                 fontSize: "1.3em",
             },
+        },
+        print: {
+            "@media print": {
+                backgroundColor: "white !important",
+                boxShadow: "none !important",
+                color: theme.palette.text.primary,
+                "& h1, h2, h3, h4, h5, h6, a, p, hr": {
+                    color: theme.palette.text.primary + " !important",
+                },
+            }
         }
     }
 })

@@ -93,7 +93,11 @@ const useStyles = makeStyles((theme: Theme) => {
         img: {
             boxShadow: theme.shadows[3],
             verticalAlign: "center",
-            width: "100%"
+            width: "100%",
+            "@media print": {
+                boxShadow: "none !important",
+                width: "auto !important"
+            }
         }
     }
 })
