@@ -26,11 +26,11 @@ export function CommentLine(props: Props) {
     const Interpreter = props.props.interpreter
     const newComment = createNewCommentForm({
         create: (newComment: {
-            body: string,
+            comment: {body: string},
             done: (result: boolean) => void
         }) => {
             props.props.create({
-                body: newComment.body,
+                ...newComment.comment,
                 parent_id: props.comment.id
             }, newComment.done)
         }
@@ -69,7 +69,7 @@ export function CommentLine(props: Props) {
                     {/*    <span>•</span></>}*/}
                     {canDelete && <React.Fragment>
                         <span className={classes.reply} onClick={() => {
-                            props.props.delete(props.comment.id!!, () => {})
+                            props.props.delete({id:props.comment.id!!}, () => {})
                         }}>Smazat</span>
                     </React.Fragment>}
                     <span>{toDateStr(props.comment.created_on)}</span>

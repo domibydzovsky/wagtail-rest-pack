@@ -1,5 +1,9 @@
 
 
+export interface DeleteComment {
+    id: number
+}
+
 export interface CreateComment {
     id?: number;
     parent_id?: number;

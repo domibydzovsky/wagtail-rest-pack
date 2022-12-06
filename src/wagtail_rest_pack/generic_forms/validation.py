@@ -20,5 +20,5 @@ def validate_stream_data(data, stream_data, **kwargs):
 def validate_form_data(data, **kwargs):
     kwargs['serializers'] = get_stream_field_serializers()
     kwargs['validated_data'] = {}
-    return validate_stream_data(data, kwargs['form'].stream.stream_data, **kwargs)
+    return validate_stream_data(data, kwargs['form'].stream.raw_data, **kwargs)
 

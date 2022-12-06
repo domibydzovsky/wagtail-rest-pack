@@ -6,7 +6,7 @@ import Avatar from "@material-ui/core/Avatar";
 
 export interface Props {
     create: (props: {
-        body: string,
+        comment: {body: string},
         done: (result: boolean) => void
     }) => void
 }
@@ -37,9 +37,8 @@ export function createNewCommentForm(props: Props): FormBuilder {
                     builder.text = "Přidat"
                     builder.icon = "comment"
                     builder.handler((data: SubmitData, actions: ActionBuilder)=> {
-                        const body: string = data.dto.data['body']
                         props.create({
-                            body: body,
+                            comment: data.dto.data,
                             done: (success) => {
                                 if (success) {
                                     data.done(actions.buildSuccess())

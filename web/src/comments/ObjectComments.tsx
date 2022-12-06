@@ -4,7 +4,7 @@ import {Pagination} from "../stream/StreamField";
 import {FormBuilder} from "../streamform/builder/FormBuilder";
 import {createNewCommentForm} from "./NewCommentForm";
 import {LoadNextButton} from "../essential/LoadNextButton";
-import {CreateComment, GetComment, UpdateComment} from "./data";
+import {CreateComment, DeleteComment, GetComment, UpdateComment} from "./data";
 import {CommentLine} from "./CommentLine";
 import {HideOnPrint} from "../essential/HideOnPrint";
 import {User} from "../essential/user";
@@ -14,7 +14,7 @@ export interface CommentProps {
     list: (pagination: Pagination, result: (comments: undefined | GetComment[]) => void) => void
     update: (update: UpdateComment, done: (result: boolean) => void) => void
     create: (create: CreateComment, done: (result: boolean) => void) => void
-    delete: (id: number, done: (result: boolean ) => void) => void
+    delete: (comment: DeleteComment, done: (result: boolean ) => void) => void
     openStaffUser: (username: string) => void
     interpreter: React.ComponentType<{ builder: FormBuilder, containerize?: boolean }>
     user: User | undefined
@@ -57,12 +57,10 @@ export function ObjectComments(props: CommentProps) {
     const Interpreter = props?.interpreter
     const newComment = createNewCommentForm({
         create: (newComment: {
-            body: string,
+            comment: {body: string},
             done: (result: boolean) => void
         }) => {
-            props.create({
-                body: newComment.body
-            }, (result) => {
+            props.create(newComment.comment, (result) => {
                 clear()
                 newComment.done(result)
             })
@@ -80,8 +78,8 @@ export function ObjectComments(props: CommentProps) {
                 done(result)
             })
         },
-        delete: (id, done) => {
-            props.delete(id, (result) => {
+        delete: (comment, done) => {
+            props.delete(comment, (result) => {
                 done(result)
                 if (result) clear()
             })
