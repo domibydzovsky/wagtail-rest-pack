@@ -4,6 +4,8 @@ from wagtail.admin.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils.translation import gettext as _
 
+import logging
+logger = logging.getLogger(__name__)
 class EmailActionHandler:
 
     def __init__(self, **kwargs):
@@ -23,9 +25,12 @@ class EmailActionHandler:
             'data': validated_data,
             'context': {}
         }
+        logger.info('rendering an email')
         msg_html = render_to_string('send_email_action.html', context)
+        logger.info('sending an email')
         send_mail(subject=subject,
                   message=str(validated_data),
                   from_email=sender,
                   recipient_list=[value['address']],
                   html_message=msg_html)
+        logger.info('email sent')

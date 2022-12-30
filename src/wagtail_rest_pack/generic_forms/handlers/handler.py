@@ -2,6 +2,8 @@ from wagtail_rest_pack.streamfield.serializers import SettingsStreamFieldSeriali
 
 from .email import EmailActionHandler
 
+import logging
+logger = logging.getLogger(__name__)
 def get_handlers():
     return {
         'send_email': EmailActionHandler
@@ -15,7 +17,9 @@ def handle(action, *args, **kwargs):
     concrete_action = value['action'][0]
     handlers = get_handlers()
     handler = handlers.get(concrete_action['type'], None)
+    logger.info('handler found')
     assert handler is not None, ('No handler configured for %s' % concrete_action['type'])
     handler(**kwargs).handle(concrete_action['value'])
+    logger.info('handled')
     return value['response']
 
